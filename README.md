@@ -29,3 +29,9 @@ Status of Adoption(Checkbox)
 Location Based Form
 Show nearby locations, click to choose and display inventory
 Show entire inventory for location
+
+
+Starter Tasks
+Build the page initial layout(HTML/CSS)
+Research Petfinder API (And how to push/pull)
+Research google maps API (and how to push/pull)
