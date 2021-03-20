@@ -1,15 +1,125 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link type="stylesheet" href="assets/style.css">
-    <title>Document</title>
-</head>
-<body>
-    
+<!doctype html>
+<html class="no-js" lang="en">
 
-    <script src="assets/script.js"></script>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PetFinder | Welcome</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css"
+        integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.min.css">
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+
+<body>
+
+    <!-- Start Top Bar -->
+    <div class="translucent-form-overlay">
+        <form>
+            <h3>Pet Finder</h3>
+            <div class="row columns">
+                <label>Location
+                    <input type="text" name="location" placeholder="City, State">
+                </label>
+            </div>
+            <div class="row columns">
+                <label>Cats or Dogs?
+                    <select name="animal" id="animalSelect" type="text">
+                        <option>Either</option>
+                        <option value="dog">Dog</option>
+                        <option value="cat">Cat</option>
+                    </select>
+                </label>
+            </div>
+            <!-- Switch Wrapper -->
+            <div class="row columns">
+                <div class="callout">
+                    <hr />
+                    <div class="switch-toggle-wrapper">
+                        <div class="switch">
+                            <input class="switch-input" id="Breed1" type="checkbox" name="Breed1">
+                            <label class="switch-paddle" for="Breed1">
+                                <span class="show-for-sr">Breed1</span>
+                            </label>
+                        </div>
+                        <span>Breed1</span>
+                    </div>
+
+                    <div class="switch-toggle-wrapper">
+                        <div class="switch">
+                            <input class="switch-input" id="Breed2" type="checkbox" name="Breed2">
+                            <label class="switch-paddle" for="Breed2">
+                                <span class="show-for-sr">Breed2</span>
+                            </label>
+                        </div>
+                        <span>Breed2</span>
+                    </div>
+
+                    <div class="switch-toggle-wrapper">
+                        <div class="switch">
+                            <input class="switch-input" id="Breed3" type="checkbox" name="Breed3">
+                            <label class="switch-paddle" for="Breed3">
+                                <span class="show-for-sr">Breed3</span>
+                            </label>
+                        </div>
+                        <span>Breed3</span>
+                    </div>
+
+                    <div class="switch-toggle-wrapper">
+                        <div class="switch">
+                            <input class="switch-input" id="Breed4" type="checkbox" name="Breed4">
+                            <label class="switch-paddle" for="Breed4">
+                                <span class="show-for-sr">Breed4</span>
+                            </label>
+                        </div>
+                        <span>Breed4</span>
+                    </div>
+
+                </div>
+            </div>
+            <!-- Switch Wrapper -->
+            <div class="row">
+                <label class="columns small-12">Price</label>
+                <div class="columns small-6">
+                    <input type="number" min="0" name="min" placeholder="Min">
+                </div>
+                <div class="columns small-6">
+                    <input type="number" min="0" name="max" placeholder="Max">
+                </div>
+            </div>
+            <div class='row columns'>
+                <button type="button" class="primary button expanded search-button">
+                    Search
+                </button>
+            </div>
+        </form>
+    </div>
+    <!-- End Top Bar -->
+
+    <div class="callout large primary">
+        <div class="row column text-center">
+            <h1>Dogs! or Cats!</h1>
+            <h3 class="subheader">Dogs/Cats up for adoption in your area....</h3>
+        </div>
+    </div>
+
+    <!-- We can now combine rows and columns when there's only one column in that row -->
+    <div class="row medium-8 large-7 columns">
+        <div class="blog-post">
+            <h3>Dog/cat name<small> (registeration time?)</small></h3>
+            <img class="thumbnail" src="https://placehold.it/850x350">
+            <p>Description of dog or cat goes here. Possibly other details such as Adoption status, previous owner, personality, etc...</p>
+            </br>   
+            <p>it can also be in bullet points/list fashion, this is just a sample card</p>     
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.js"></script>
+    <script>
+        $(document).foundation();
+    </script>
+    <script src='assets/script.js'></script>
 </body>
+
 </html>
