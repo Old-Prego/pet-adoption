@@ -9,20 +9,30 @@ function buildPetCard(petName,petImg,petBreed,petAge,petOwners,petDist,petLoc){
 
     let petCard = html`
 
-        <div id="${petName}" class="petCard cell medium-6 large-4">
-            <h3>${petName}</h3>
-            <img src="${petImg}" alt="Picture of ${petName}" width="450px" height="500px">
-            <p>Breed: ${petBreed}</p>
-            <p>Age: ${petAge}</p>
-            <p>Previous Owners: ${petOwners}</p>
-            <p>Distance Away: ${petDist} miles</p>
-            <div id="addressCont">
-                <h5>${petLoc.shelter}</h5>
-                <p>${petLoc.address1}</p>
-                <p>${petLoc.address2}</p>
-                <p>${petLoc.city}</p>
-                <p>${petLoc.state}</p>
-                <p>${petLoc.zip}</p>
+        <div id="${petName}" class="petCard card cell medium-6 large-4">
+
+            <h3 class="card-divider">${petName}</h3>
+
+            <div class="card-section">
+                <img src="${petImg}" alt="Picture of ${petName}" width="200px" height="200px">
+            </div>
+
+            <div class="card-section">
+
+                <p>Breed: ${petBreed}</p>
+                <p>Age: ${petAge}</p>
+                <p>Previous Owners: ${petOwners}</p>
+                <p>Distance Away: ${petDist} miles</p>
+
+                <div id="addressCont">
+                    <h5>${petLoc.shelter}</h5>
+                    <p>${petLoc.address1}</p>
+                    <p>${petLoc.address2}</p>
+                    <p>${petLoc.city}</p>
+                    <p>${petLoc.state}</p>
+                    <p>${petLoc.zip}</p>
+                </div>
+
             </div>
         </div>`
 
@@ -39,7 +49,7 @@ var petLocation = {
 };
 
 var petName = "Sanders";
-var petImg = "http://placehold.it/450x500";
+var petImg = "http://placehold.it/200x200";
 var petBreed = "Tabby";
 var petAge = "4";
 var petOwners = "1";
