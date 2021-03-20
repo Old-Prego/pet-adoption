@@ -1,0 +1,25 @@
+
+.switch-toggle-wrapper {
+    display: flex;
+    margin-bottom: 1rem;
+    -webkit-justify-content: flex-start;
+        -ms-flex-pack: justify;
+            justify-content: flex-start;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+}
+  
+  .switch-toggle-wrapper .switch {
+    margin-bottom: 0;
+}
+
+span {
+    margin-left: 20px;
+    width: 200px;
+}
+
+h3 {
+    text-align: center;
+    margin:20px;
+}
