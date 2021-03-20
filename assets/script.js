@@ -9,7 +9,7 @@ function buildPetCard(petName,petImg,petBreed,petAge,petOwners,petDist,petLoc){
 
     let petCard = html`
 
-        <div id="${petName}" class="petCard">
+        <div id="${petName}" class="petCard cell medium-6 large-4">
             <h3>${petName}</h3>
             <img src="${petImg}" alt="Picture of ${petName}" width="450px" height="500px">
             <p>Breed: ${petBreed}</p>
