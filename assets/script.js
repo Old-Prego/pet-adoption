@@ -27,8 +27,7 @@ fetch('https://api.petfinder.com/v2/oauth2/token', {
 
 }).then(function (data) {
 	console.log('Animals', data);
-  console.log(data.animals.type)
-}).catch(function (Error) {
-	console.log('YOU FOOL!', err);
+}).catch(function (error) {
+	console.log('YOU FOOL!', error );
 
 });
