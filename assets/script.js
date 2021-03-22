@@ -6,7 +6,7 @@ var petList = document.getElementById("petList");
 
 function buildPetCard(petName,petImg,petBreed,petAge,petOwners,petDist,petLoc){
     
-
+    
     let petCard = html`
 
         <div id="${petName}" class="petCard card cell medium-6 large-4">
