@@ -1,3 +1,17 @@
+
+const distanceRange = document.getElementById('distanceRange')
+const distanceNumber = document.getElementById('distanceNumber')
+
+//Synchronizing length and number of slider
+distanceRange.addEventListener("input", syncLengthRange)
+distanceNumber.addEventListener("input", syncLengthRange)
+
+function syncLengthRange(e) {
+  const value = e.target.value
+  distanceNumber.value = value
+  distanceRange.value = value
+}
+
 // Template tag parser courtesy of Nate
 // This takes template tags and parses them into HTML elements that are appendable to the current scope
 const html = (strings, ...values) => new DOMParser().parseFromString(strings.map((string, i) => strings[i] + values[i]).join(''), "text/html").body.firstChild;
@@ -57,3 +71,4 @@ var petDist = "20";
 
 var petCard = buildPetCard(petName,petImg,petBreed,petAge,petOwners,petDist,petLocation);
 petList.appendChild(petCard);
+
