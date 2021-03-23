@@ -62,7 +62,7 @@ petList.appendChild(petCard);
 // Search Params kinda look like this:
 http://127.0.0.1:5500/pet-adoption/results.html?cityState=Alexandria%2C+MN&zip=56308&animal=Either&distance=50&dogBreed1=on&dogBreed2=on&dogBreed4=on&catBreed2=on&catBreed3=on&ownerYesNo=on&min=1&max=20&min=800&max=7000
 
-let params = new URLSearchParams(document.location.search.substring(1));
+var params = new URLSearchParams(document.location.search.substring(1));
 var qCityState = params.get("cityState");
 var qZIP = params.get("zip");
 var qAnimal = params.get("animal");
@@ -81,11 +81,4 @@ var qMaxAge = params.get("maxAge");
 var qminPrice = params.get("minPrice");
 var qMaxPrice = params.get("maxPrice");
 
-console.log(qCityState);
-console.log(qZIP);
-console.log(qAnimal);
-console.log(qDistance);
-console.log(qDogB1);
-console.log(qDogB2);
-console.log(qOwner);
-console.log(qMaxAge);
+// For toggle switches, TRUE = "on" and FALSE = null. Make sure to convert this for the end parameters.
