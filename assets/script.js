@@ -1,5 +1,4 @@
 
-
 // Template tag parser courtesy of Nate
 // This takes template tags and parses them into HTML elements that are appendable to the current scope
 const html = (strings, ...values) => new DOMParser().parseFromString(strings.map((string, i) => strings[i] + values[i]).join(''), "text/html").body.firstChild;
