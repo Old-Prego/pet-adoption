@@ -23,17 +23,17 @@
 
     <!-- Beginning Wrapper for Form-->
     <div class="form">
-        <form>
+        <form id="petForm" name="petForm">
             <h3>Help us find the right pet for you by inputting the following information.</h3>
             <div class='row'>
                 <div class="columns medium-4 large-4">
                     <label>Location
-                        <input type="text" name="location" placeholder="City, State">
+                        <input type="text" name="location" placeholder="City, State" id="location">
                     </label>
                 </div>
                 <div class="columns medium-4 large-4">
                     <label>Zip
-                        <input type="text" name="location" placeholder="Zip code">
+                        <input type="text" name="location" placeholder="Zip code" id="zip">
                     </label>
                 </div>
                 <div class="columns medium-4 large-4">
@@ -179,7 +179,7 @@
                 </div>
             </div>
             <div class='row columns'>
-                <button type="button" class="primary button expanded search-button">
+                <button type="submit" class="primary button expanded search-button">
                     Search
                 </button>
             </div>
@@ -194,8 +194,8 @@
     <script>
         $(document).foundation();
     </script>
-    <script src='assets/script.js'></script>
     <script src='assets/slider.js'></script>
+    <script src="assets/formScript.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 </body>
 
