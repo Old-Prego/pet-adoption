@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find a Pet!</title>
+    <link rel="stylesheet" href=" https://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.min.css ">
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+    <h2>What Type of Pet Are You Looking For?</h2>
+    <form id="criteriaForm">
+        <select name="animal" id="animalSelect">
+            <option value="dog">Dog</option>
+            <option value="cat">Cat</option>
+        </select>
+        <div id="dogBreeds">
+            <input type="checkbox" id="breed1" name="breed1" value="breed1">
+            <label for="breed1">breed1</label>
+            <input type="checkbox" id="breed2" name="breed2" value="breed2">
+            <label for="breed2">breed2</label>
+            <input type="checkbox" id="breed3" name="breed3" value="breed3">
+            <label for="breed3">breed3</label>
+            <input type="checkbox" id="breed4" name="breed4" value="breed4">
+            <label for="breed4">breed4</label>
+        </div>
+        <div id="catBreeds">
+            <input type="checkbox" id="breed1" name="breed1" value="breed1">
+            <label for="breed1">breed1</label>
+            <input type="checkbox" id="breed2" name="breed2" value="breed2">
+            <label for="breed2">breed2</label>
+            <input type="checkbox" id="breed3" name="breed3" value="breed3">
+            <label for="breed3">breed3</label>
+            <input type="checkbox" id="breed4" name="breed4" value="breed4">
+            <label for="breed4">breed4</label>
+        </div>
+        <div class="ageSlideCont">
+            <input type="range" min="0" max="30" value="15" class="ageSlider" id="ageSlider" name="ageSlider">
+            <label for="ageSlider">Age</label>
+        </div>
+        <div class="previousOwnerCont">
+            <input type="radio" id="ownerYes" name="ownerYes" value="true">
+            <label for="ownerYes">Yes</label>
+            <input type="radio" id="ownerNo" name="ownerNo" value="false">
+            <label for="ownerNo">No</label>
+        </div>
+        <br />
+        <div class="locCont">
+            <input type="text" id="address1" name="address1"></input>
+            <label for="address1">Address 1</label>
+            <input type="text" id="address2" name="address2"></input>
+            <label for="address2">Address 2</label>
+            <input type="text" id="city" name="city"></input>
+            <label for="city">City</label>
+            <input type="text" id="state" name="state"></input>
+            <label for="state">State</label>
+            <input type="text" id="zip" name="zip"></input>
+            <label for="zip">ZIP</label>
+        </div>
+        <div class="distCont">
+            <input type="range" min="1" max="200" value="10" class="distSlider" id="distSlider" name="distSlider">
+            <label for="distSlider">Distance Away</label>
+        </div>
+    </form>
+    
+    <main id="container">
+        <div id="petList" class="xy-grid align-center"></div>
+    </main>
+    <script src="assets/script.js"></script>
+</body>
+</html>
