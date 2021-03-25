@@ -1,77 +1,202 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link type="stylesheet" href="assets/style.css">
-    <title>Find a Pet!</title>
-</head>
-<body>
-    <header>
-        <h1>Pet Adoption Finder (placeholder)</h1>
-    </header>
+<!doctype html>
+<html class="no-js" lang="en">
 
-    <main>
-        <h2>What Type of Pet Are You Looking For?</h2>
-        <form id="criteriaForm">
-            <select name="animal" id="animalSelect">
-                <option value="dog">Dog</option>
-                <option value="cat">Cat</option>
-            </select>
-            <div id="dogBreeds">
-                <input type="checkbox" id="breed1" name="breed1" value="breed1">
-                <label for="breed1">breed1</label>
-                <input type="checkbox" id="breed2" name="breed2" value="breed2">
-                <label for="breed2">breed2</label>
-                <input type="checkbox" id="breed3" name="breed3" value="breed3">
-                <label for="breed3">breed3</label>
-                <input type="checkbox" id="breed4" name="breed4" value="breed4">
-                <label for="breed4">breed4</label>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PetFinder | Welcome</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css"
+        integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.min.css">
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+
+<body>
+    <!-- Start Top Bar -->
+    <div class="callout large primary">
+        <div class="row column text-center">
+            <h1>Petfinder!</h1>
+            <h3 class="subheader">Find the perfect pet for your family.
+            </h3>
+        </div>
+    </div>
+
+    <!-- Beginning Wrapper for Form-->
+    <div class="form">
+        <form id="petForm" name="petForm">
+            <h3>Help us find the right pet for you by inputting the following information.</h3>
+            <div class='row'>
+                <div class="columns medium-4 large-4">
+                    <label>Location
+                        <input type="text" name="cityState" placeholder="City, State" id="location" required>
+                    </label>
+                </div>
+                <div class="columns medium-4 large-4">
+                    <label>Zip
+                        <input type="text" name="zip" placeholder="Zip code" id="zip" required>
+                    </label>
+                </div>
+                <div class="columns medium-4 large-4">
+                    <label>Cats or Dogs?
+                        <select name="animal" id="animalSelect" type="text">
+                            <option value="dog">Dogs</option>
+                            <option value="cat">Cats</option>
+                        </select>
+                    </label>
+                </div>
+                <div id='sliderdiv' class="columns small-6 medium-6 large-6">
+                    <label>Distance
+                        <input id='distanceRange' type="range" min="1" max="200" value='5' step="1">
+                    </label>
+                </div>
+                <div class='columns small-4 medium-2 large-2'>
+                    <input id='distanceNumber' type="number" max="200" min="1" value='5' name="distance">
+                </div>
+                <div class="columns small-2 medium-4 large-4">
+
+                </div>
             </div>
-            <div id="catBreeds">
-                <input type="checkbox" id="breed1" name="breed1" value="breed1">
-                <label for="breed1">breed1</label>
-                <input type="checkbox" id="breed2" name="breed2" value="breed2">
-                <label for="breed2">breed2</label>
-                <input type="checkbox" id="breed3" name="breed3" value="breed3">
-                <label for="breed3">breed3</label>
-                <input type="checkbox" id="breed4" name="breed4" value="breed4">
-                <label for="breed4">breed4</label>
+            <!-- Switch Wrapper -->
+            <div class="row columns">
+                <div id='switchmegadiv' class="callout">
+                    <div id='dogBreeds'>
+                        <h4>Types of dogs:</h4>
+                        <div class="switch-toggle-wrapper">
+                            <div class="switch small">
+                                <input class="switch-input" id="dogBreed1" type="checkbox" name="dogBreed1">
+                                <label class="switch-paddle" for="dogBreed1">
+                                    <span class="show-for-sr">dogBreed1</span>
+                                </label>
+                            </div>
+                            <span>dogBreed1</span>
+                        </div>
+
+                        <div class="switch-toggle-wrapper">
+                            <div class="switch small">
+                                <input class="switch-input" id="dogBreed2" type="checkbox" name="dogBreed2">
+                                <label class="switch-paddle" for="dogBreed2">
+                                    <span class="show-for-sr">dogBreed2</span>
+                                </label>
+                            </div>
+                            <span>dogBreed2</span>
+                        </div>
+
+                        <div class="switch-toggle-wrapper">
+                            <div class="switch small">
+                                <input class="switch-input" id="dogBreed3" type="checkbox" name="dogBreed3">
+                                <label class="switch-paddle" for="dogBreed3">
+                                    <span class="show-for-sr">dogBreed3</span>
+                                </label>
+                            </div>
+                            <span>dogBreed3</span>
+                        </div>
+
+                        <div class="switch-toggle-wrapper">
+                            <div class="switch small">
+                                <input class="switch-input" id="dogBreed4" type="checkbox" name="dogBreed4">
+                                <label class="switch-paddle" for="dogBreed4">
+                                    <span class="show-for-sr">dogBreed4</span>
+                                </label>
+                            </div>
+                            <span>dogBreed4</span>
+                        </div>
+                    </div>
+
+                    <div id='catBreeds'>
+                        <h4>Types of cats:</h4>
+                        <div class="switch-toggle-wrapper">
+                            <div class="switch small">
+                                <input class="switch-input" id="catBreed1" type="checkbox" name="catBreed1">
+                                <label class="switch-paddle" for="catBreed1">
+                                    <span class="show-for-sr">catBreed1</span>
+                                </label>
+                            </div>
+                            <span>catBreed1</span>
+                        </div>
+
+                        <div class="switch-toggle-wrapper">
+                            <div class="switch small">
+                                <input class="switch-input" id="catBreed2" type="checkbox" name="catBreed2">
+                                <label class="switch-paddle" for="catBreed2">
+                                    <span class="show-for-sr">catBreed2</span>
+                                </label>
+                            </div>
+                            <span>catBreed2</span>
+                        </div>
+
+                        <div class="switch-toggle-wrapper">
+                            <div class="switch small">
+                                <input class="switch-input" id="catBreed3" type="checkbox" name="catBreed3">
+                                <label class="switch-paddle" for="catBreed3">
+                                    <span class="show-for-sr">catBreed3</span>
+                                </label>
+                            </div>
+                            <span>catBreed3</span>
+                        </div>
+
+                        <div class="switch-toggle-wrapper">
+                            <div class="switch small">
+                                <input class="switch-input" id="catBreed4" type="checkbox" name="catBreed4">
+                                <label class="switch-paddle" for="catBreed4">
+                                    <span class="show-for-sr">catBreed4</span>
+                                </label>
+                            </div>
+                            <span>catBreed4</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="ageSlideCont">
-                <input type="range" min="0" max="30" value="15" class="ageSlider" id="ageSlider" name="ageSlider">
-                <label for="ageSlider">Age</label>
+            <!-- End Switch Wrapper -->
+            <div class='row'>
+                <label class='columns small-12'>Previous Owner
+                    <div id='prevOwner' class="switch large">
+                        <input class="switch-input" id="yes-no" type="checkbox" name="ownerYesNo">
+                        <label class="switch-paddle" for="yes-no">
+                            <span class="switch-active" aria-hidden="true">Yes</span>
+                            <span class="switch-inactive" aria-hidden="true">No</span>
+                        </label>
+                    </div>
+                </label>
             </div>
-            <div class="previousOwnerCont">
-                <input type="radio" id="ownerYes" name="ownerYes" value="true">
-                <label for="ownerYes">Yes</label>
-                <input type="radio" id="ownerNo" name="ownerNo" value="false">
-                <label for="ownerNo">No</label>
+            <div class="row">
+                <label class="columns small-12">Age (Human Years)</label>
+                <div class="columns small-6">
+                    <input type="number" min="0" name="minAge" placeholder="Min">
+                </div>
+                <div class="columns small-6">
+                    <input type="number" min="0" name="maxAge" placeholder="Max">
+                </div>
             </div>
-            <br />
-            <div class="locCont">
-                <input type="text" id="address1" name="address1"></input>
-                <label for="address1">Address 1</label>
-                <input type="text" id="address2" name="address2"></input>
-                <label for="address2">Address 2</label>
-                <input type="text" id="city" name="city"></input>
-                <label for="city">City</label>
-                <input type="text" id="state" name="state"></input>
-                <label for="state">State</label>
-                <input type="text" id="zip" name="zip"></input>
-                <label for="zip">ZIP</label>
+
+            <div class="row">
+                <label class="columns small-12">Price</label>
+                <div class="columns small-6">
+                    <input type="number" min="0" name="minPrice" placeholder="Min">
+                </div>
+                <div class="columns small-6">
+                    <input type="number" min="0" name="maxPrice" placeholder="Max">
+                </div>
             </div>
-            <div class="distCont">
-                <input type="range" min="1" max="200" value="10" class="distSlider" id="distSlider" name="distSlider">
-                <label for="distSlider">Distance Away</label>
+            <div class='row columns'>
+                <button type="submit" class="primary button expanded search-button">
+                    Search
+                </button>
             </div>
         </form>
-    </main>
 
-    <footer>
+    </div>
+    <!-- End Wrapper for Form -->
 
-    </footer>
-    <script src="assets/script.js"></script>
+    <!-- Result cards (WIP)-->
+
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.js"></script>
+    <script>
+        $(document).foundation();
+    </script>
+    <script src='assets/slider.js'></script>
+    <script src="assets/formScript.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 </body>
+
 </html>
