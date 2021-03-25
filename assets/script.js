@@ -12,10 +12,8 @@ var qAnimal = params.get("animal");
 var qDistance = params.get("distance");
 var qDogBreed = params.get("dogBreed");
 var qCatBreed = params.get("catBreed");
-var qMinAge = params.get("minAge");
-var qMaxAge = params.get("maxAge");
-var qminPrice = params.get("minPrice");
-var qMaxPrice = params.get("maxPrice");
+var qAge = params.get("Age");
+
 
 
 // Template tag parser courtesy of Nate
@@ -24,7 +22,7 @@ const html = (strings, ...values) => new DOMParser().parseFromString(strings.map
 
 
 // This is the actual template for the HTML, with variables passed to it.
-function buildPetCard(petName,petImg,petBreed,petAge,petDist,petLoc){
+function buildPetCard(petName,petImg,petBreed,petAge,petDist,petLoc, petStatus){
     
     let petCard = html`
 
@@ -81,7 +79,8 @@ function populateCards(data){
             data[i].breed.primary,
             data[i].age,
             data[i].distance,
-            petLocation
+            petLocation,
+            data[i].status
             );
 
         petList.appendChild(petCard);
