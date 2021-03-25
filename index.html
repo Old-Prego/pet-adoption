@@ -23,23 +23,22 @@
 
     <!-- Beginning Wrapper for Form-->
     <div class="form">
-        <form>
+        <form id="petForm" name="petForm">
             <h3>Help us find the right pet for you by inputting the following information.</h3>
             <div class='row'>
                 <div class="columns medium-4 large-4">
                     <label>Location
-                        <input type="text" name="location" placeholder="City, State">
+                        <input type="text" name="cityState" placeholder="City, State" id="location" required>
                     </label>
                 </div>
                 <div class="columns medium-4 large-4">
                     <label>Zip
-                        <input type="text" name="location" placeholder="Zip code">
+                        <input type="text" name="zip" placeholder="Zip code" id="zip" required>
                     </label>
                 </div>
                 <div class="columns medium-4 large-4">
                     <label>Cats or Dogs?
                         <select name="animal" id="animalSelect" type="text">
-                            <option>Either</option>
                             <option value="dog">Dogs</option>
                             <option value="cat">Cats</option>
                         </select>
@@ -51,7 +50,7 @@
                     </label>
                 </div>
                 <div class='columns small-4 medium-2 large-2'>
-                    <input id='distanceNumber' type="number" max="200" min="1" value='5'>
+                    <input id='distanceNumber' type="number" max="200" min="1" value='5' name="distance">
                 </div>
                 <div class="columns small-2 medium-4 large-4">
 
@@ -162,24 +161,24 @@
             <div class="row">
                 <label class="columns small-12">Age (Human Years)</label>
                 <div class="columns small-6">
-                    <input type="number" min="0" name="min" placeholder="Min">
+                    <input type="number" min="0" name="minAge" placeholder="Min">
                 </div>
                 <div class="columns small-6">
-                    <input type="number" min="0" name="max" placeholder="Max">
+                    <input type="number" min="0" name="maxAge" placeholder="Max">
                 </div>
             </div>
 
             <div class="row">
                 <label class="columns small-12">Price</label>
                 <div class="columns small-6">
-                    <input type="number" min="0" name="min" placeholder="Min">
+                    <input type="number" min="0" name="minPrice" placeholder="Min">
                 </div>
                 <div class="columns small-6">
-                    <input type="number" min="0" name="max" placeholder="Max">
+                    <input type="number" min="0" name="maxPrice" placeholder="Max">
                 </div>
             </div>
             <div class='row columns'>
-                <button type="button" class="primary button expanded search-button">
+                <button type="submit" class="primary button expanded search-button">
                     Search
                 </button>
             </div>
@@ -194,8 +193,8 @@
     <script>
         $(document).foundation();
     </script>
-    <script src='assets/script.js'></script>
     <script src='assets/slider.js'></script>
+    <script src="assets/formScript.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 </body>
 

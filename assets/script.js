@@ -1,13 +1,28 @@
+// General global variables. petList gets the location of where the HTML templates will be dumped.
+var petCard;
+var petLocation;
+var petList = document.getElementById("petList");
+
+// On loading the results page, this loads the query parameters from the search form
+// It also puts these parameters into variables, so that it is easier to query the API
+var params = new URLSearchParams(document.location.search.substring(1));
+var qCityState = params.get("cityState");
+var qZIP = params.get("zip");
+var qAnimal = params.get("animal");
+var qDistance = params.get("distance");
+var qDogBreed = params.get("dogBreed");
+var qCatBreed = params.get("catBreed");
+var qAge = params.get("Age");
+
 
 
 // Template tag parser courtesy of Nate
 // This takes template tags and parses them into HTML elements that are appendable to the current scope
 const html = (strings, ...values) => new DOMParser().parseFromString(strings.map((string, i) => strings[i] + values[i]).join(''), "text/html").body.firstChild;
 
-var petList = document.getElementById("petList");
 
-function buildPetCard(petName,petImg,petBreed,petAge,petOwners,petDist,petLoc){
-    
+// This is the actual template for the HTML, with variables passed to it.
+function buildPetCard(petName,petImg,petBreed,petAge,petDist,petLoc, petStatus){
     
     let petCard = html`
 
@@ -23,7 +38,6 @@ function buildPetCard(petName,petImg,petBreed,petAge,petOwners,petDist,petLoc){
 
                 <p>Breed: ${petBreed}</p>
                 <p>Age: ${petAge}</p>
-                <p>Previous Owners: ${petOwners}</p>
                 <p>Distance Away: ${petDist} miles</p>
 
                 <div id="addressCont">
@@ -41,22 +55,34 @@ function buildPetCard(petName,petImg,petBreed,petAge,petOwners,petDist,petLoc){
     return petCard;
 };
 
-var petLocation = {
-    shelter: "Luke's Shelter",
-    address1: "315 6th Ave E",
-    address2: "Apt 6",
-    city: "Alexandria",
-    state: "MN",
-    zip: "56308"
+
+// Space for the PetFinder API fetch
+
+
+// This function is not being called yet, but will take data returned from the PetFinder API, build the cards, and append them to the screen.
+function populateCards(data){
+    for (var i = 0; i < data.length; i++){
+
+        petLocation = {
+            email: data[i].contact.email,
+            phone: data[i].contact.phone,
+            address1: data[i].contact.address.address1,
+            address2: data[i].contact.address.address2,
+            city: data[i].contact.address.city,
+            state: data[i].contact.address.state,
+            zip: data[i].contact.address.postcode
+        };
+
+        petCard = buildPetCard(
+            data[i].name,
+            data[i].photos.full,
+            data[i].breed.primary,
+            data[i].age,
+            data[i].distance,
+            petLocation,
+            data[i].status
+            );
+
+        petList.appendChild(petCard);
+    }
 };
-
-var petName = "Sanders";
-var petImg = "http://placehold.it/200x200";
-var petBreed = "Tabby";
-var petAge = "4";
-var petOwners = "1";
-var petDist = "20";
-
-var petCard = buildPetCard(petName,petImg,petBreed,petAge,petOwners,petDist,petLocation);
-petList.appendChild(petCard);
-
