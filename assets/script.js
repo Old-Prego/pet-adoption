@@ -3,7 +3,7 @@
 var petCard;
 var petLocation;
 var petList = document.getElementById("petList");
-
+var breedArray = []
 // On loading the results page, this loads the query parameters from the search form
 // It also puts these parameters into variables, so that it is easier to query the API
 var params = new URLSearchParams(document.location.search.substring(1));
@@ -22,7 +22,7 @@ const html = (strings, ...values) => new DOMParser().parseFromString(strings.map
 
 // This is the actual template for the HTML, with variables passed to it.
 function buildPetCard(petName,petImg,petBreed,petAge,petDist,petLoc, petStatus){
-    
+
     let petCard = html`
 
         <div id="${petName}" class="petCard card cell medium-6 large-4">
@@ -53,6 +53,46 @@ function buildPetCard(petName,petImg,petBreed,petAge,petDist,petLoc, petStatus){
 
     return petCard;
 };
+
+//Breed Api Fetch, grabs breeds based on Animal of choice and returns them as search parameters
+
+function fetchBreeds(){
+  var key = "j4sCZuvwpfgBJBJkcTF1Q2jWK3imT2gtsdOUiC3QwKjtLahsYP";
+  var secret = "aN0ZxQr0R1rBU7ikZCowpLOuVUQDqE0Z65Ck6Glb";
+  var url  = "https://api.petfinder.com/v2/types/"
+  fetch('https://api.petfinder.com/v2/oauth2/token', {
+  	method: 'POST',
+  	body: 'grant_type=client_credentials&client_id=' + key + '&client_secret=' + secret,
+  	headers: {
+  		'Content-Type': 'application/x-www-form-urlencoded'
+  	}
+  }).then(function (response) {
+  	return response.json();
+
+  }).then(function (data) {
+    //A second call going to be made to the Api, this one will use the token data to retrive information,
+    return fetch(url + qAnimal + "/breeds", {
+      headers: {
+        'Authorization': data.token_type + ' ' + data.access_token,
+        'Content-Type' : 'application/x-www-form-urlencoded'
+      }
+    })
+  }).then(function (response) {
+  	return response.json();
+
+  }).then(function (data) {
+    for (i = 0 ; i < data.breeds.length; i++){
+      breedArray[i] = data.breeds[i].name
+      //direct the data to drop down
+      console.log(breedArray[i])
+    }
+  }).catch(function (error) {
+  	console.log('YOU FOOL!', error );
+
+  });
+}
+
+
 
 // Space for the PetFinder API fetch
 
