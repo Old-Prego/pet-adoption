@@ -60,6 +60,7 @@ function buildPetCard(petName,petImg,petBreed,petAge,petDist,petLoc,petStatus,pe
                 </br>
                 <p class='animal-details'>${petLoc.address1}, ${petLoc.address2}</p>
                 <p class='animal-details'>${petLoc.city}, ${petLoc.state} ${petLoc.zip}</p>
+                <div id="${petName}Map"></div>
             </div>
         </div>
     </div>
@@ -68,7 +69,7 @@ function buildPetCard(petName,petImg,petBreed,petAge,petDist,petLoc,petStatus,pe
     return petCard;
 };
 
-function fetchCoord(address,city,state,zip){
+function fetchCoord(address,city,state,zip,animalName){
 
   var qAddress = address.split(' ').join('+');
   var qCity = city.split(' ').join('+');
@@ -82,15 +83,8 @@ function fetchCoord(address,city,state,zip){
       return response.json();
     })
     .then(function(data){
-      generateMap(data);
+      generateMap(data,animalName);
     })
-}
-
-function initMap(data){
-  console.log(data);
-
-  const uluru = {lat: data.results[0].geometry.location.lat, lng: data.results[0].geometry.location.lng};
-  const map = new google.maps.Map(document.getElementById)
 }
 
 // Space for the PetFinder API fetch
@@ -166,6 +160,7 @@ function fetchAnimals(parameters){
   }).then(function (data) {
     //data is printed to console.log, we can send to function once we have things up and running...
     populateCards(data);
+    
   }).catch(function (error) {
   	console.log('YOU FOOL!', error );
 
@@ -255,17 +250,6 @@ function populateCards(data){
           animalDescription = "";
         }
 
-        fetchCoord(pAddress1,pCity,pState,pZip);
-
-        console.log(geoDataReturn);
-        // console.log(coordsData);
-        // console.log(coordsData);
-        // var curLat = coordsData[0];
-        // var curLon = coordsData[1];
-
-        // console.log(curLat);
-        // console.log(curLon);
-        
         petLocation = {
           email: pEmail,
           phone: pPhone,
@@ -288,9 +272,33 @@ function populateCards(data){
             );
 
         petList.appendChild(petCard);
+
+        fetchCoord(pAddress1,pCity,pState,pZip,animalName);
+
       } catch (error) {
         console.error(error);
         continue;
       }
     }
 };
+
+function generateMap(data,animalName){
+  console.log("Test1");
+  var mapID = animalName + "Map";
+  console.log("Test2");
+  const uluru = {lat: data.results[0].geometry.location.lat, lng: data.results[0].geometry.location.lng};
+  console.log("Test3");
+  const map = new google.maps.Map(document.getElementById(mapID),{
+    zoom: 4,
+    center: uluru,
+  });
+  console.log("Test4");
+  const marker = new google.maps.Marker({
+    position: uluru,
+    map: map,
+  });
+}
+
+function initMap(){
+
+}
