@@ -53,7 +53,7 @@ var qAnimal = params.get("animal");
 var qDistance = params.get("distance");
 var qDogBreed = params.get("dogBreed");
 var qCatBreed = params.get("catBreed");
-var qAge = params.get("Age");
+var qAge = params.get("age");
 
 //Get inut from forum and orgnizes it inorder to add it to the url as parametes...
 function queryParmeters(qCityState,qZIP,qAnimal,qDistance,qDogBreed,qCatBreed,qAge){
