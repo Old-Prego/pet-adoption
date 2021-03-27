@@ -3,19 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>map</title>
+  <title>petmap</title>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+  <link rel="stylesheet" type="text/css" href="./style.css" />
 </head>
 <body>
   
 
-<iframe
-  width="600"
-  height="450"
-  style="border:0"
-  loading="lazy"
-  allowfullscreen
-  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBStqLnpObl6uwhgT4xY-zr79JmtcNSaJ8&q=Space+Needle,Seattle+WA">
-</iframe>
+
+  <div id = "map"></div>
+
+  <script
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBStqLnpObl6uwhgT4xY-zr79JmtcNSaJ8&callback=initMap&libraries=&v=weekly"
+  async
+></script>
+<script src=" ./map.js"></script>
+  
+
 </body>
 </html>
 
