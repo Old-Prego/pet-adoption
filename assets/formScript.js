@@ -12,6 +12,7 @@ function handleSubmit(event){
    
 }
 
+//Breed Api Fetch, grabs breeds based on Animal of choice and returns them as search parameters
 function fetchDogBreeds(){
     var key = "j4sCZuvwpfgBJBJkcTF1Q2jWK3imT2gtsdOUiC3QwKjtLahsYP";
     var secret = "aN0ZxQr0R1rBU7ikZCowpLOuVUQDqE0Z65Ck6Glb";
@@ -50,6 +51,7 @@ function fetchDogBreeds(){
     });
   }
 
+  //Breed Api Fetch, grabs breeds based on Animal of choice and returns them as search parameters
   function fetchCatBreeds(){
     var key = "j4sCZuvwpfgBJBJkcTF1Q2jWK3imT2gtsdOUiC3QwKjtLahsYP";
     var secret = "aN0ZxQr0R1rBU7ikZCowpLOuVUQDqE0Z65Ck6Glb";

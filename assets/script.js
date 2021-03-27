@@ -1,5 +1,3 @@
-
-
 // General global variables. petList gets the location of where the HTML templates will be dumped.
 var petCard;
 var petLocation;
@@ -19,6 +17,8 @@ var pState;
 var pZip;
 var animalStatus;
 var animalDescription;
+var lat;
+var lon;
 
 // On loading the results page, this loads the query parameters from the search form
 // It also puts these parameters into variables, so that it is easier to query the API
@@ -67,45 +67,24 @@ function buildPetCard(petName,petImg,petBreed,petAge,petDist,petLoc,petStatus,pe
     return petCard;
 };
 
+function fetchCoord(zip){
 
-//Breed Api Fetch, grabs breeds based on Animal of choice and returns them as search parameters
+  if (zip != ""){
+    var geoSearch = "https://api.openweathermap.org/geo/1.0/zip?zip=" + zip + ",US&appid=c6eaafdda32a99ec9f1f55f17ec8b9a3";
+    fetch(geoSearch)
+      .then(function(response){
+        return response.json();
+      })
+      .then(function(data) {
+        console.log(data);
+        lat = data.lat;
+        lon = data.lon;
+        
+      })
+  }
 
-function fetchBreeds(){
-  var key = "j4sCZuvwpfgBJBJkcTF1Q2jWK3imT2gtsdOUiC3QwKjtLahsYP";
-  var secret = "aN0ZxQr0R1rBU7ikZCowpLOuVUQDqE0Z65Ck6Glb";
-  var url  = "https://api.petfinder.com/v2/types/"
-  fetch('https://api.petfinder.com/v2/oauth2/token', {
-  	method: 'POST',
-  	body: 'grant_type=client_credentials&client_id=' + key + '&client_secret=' + secret,
-  	headers: {
-  		'Content-Type': 'application/x-www-form-urlencoded'
-  	}
-  }).then(function (response) {
-  	return response.json();
-
-  }).then(function (data) {
-    //A second call going to be made to the Api, this one will use the token data to retrive information,
-    return fetch(url + qAnimal + "/breeds", {
-      headers: {
-        'Authorization': data.token_type + ' ' + data.access_token,
-        'Content-Type' : 'application/x-www-form-urlencoded'
-      }
-    })
-  }).then(function (response) {
-  	return response.json();
-
-  }).then(function (data) {
-    for (i = 0 ; i < data.breeds.length; i++){
-      breedArray[i] = data.breeds[i].name
-      //direct the data to drop down
-      console.log(breedArray[i])
-    }
-  }).catch(function (error) {
-  	console.log('YOU FOOL!', error );
-
-  });
+  return [lat,lon];
 }
-
 
 // Space for the PetFinder API fetch
 // On loading the results page, this loads the query parameters from the search form
@@ -179,7 +158,6 @@ function fetchAnimals(parameters){
 
   }).then(function (data) {
     //data is printed to console.log, we can send to function once we have things up and running...
-  	console.log('Animals', data);
     populateCards(data);
   }).catch(function (error) {
   	console.log('YOU FOOL!', error );
@@ -189,7 +167,6 @@ function fetchAnimals(parameters){
 }
 
 fetchAnimals(animalQParam);
-
 
 // This function is not being called yet, but will take data returned from the PetFinder API, build the cards, and append them to the screen.
 function populateCards(data){
@@ -270,6 +247,14 @@ function populateCards(data){
         }else{
           animalDescription = "";
         }
+
+        var coordsData = fetchCoord(pZip);
+        console.log(coordsData);
+        var curLat = coordsData[0];
+        var curLon = coordsData[1];
+
+        console.log(curLat);
+        console.log(curLon);
         
         petLocation = {
           email: pEmail,
@@ -294,7 +279,7 @@ function populateCards(data){
 
         petList.appendChild(petCard);
       } catch (error) {
-        // console.error(error);
+        console.error(error);
         continue;
       }
     }
