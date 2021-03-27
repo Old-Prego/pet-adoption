@@ -74,9 +74,12 @@ function queryParmeters(qCityState,qZIP,qAnimal,qDistance,qDogBreed,qCatBreed,qA
     if (qAge != null){
       query = query + `&age=${qAge}`;
     }
-    if (qCityState != null){
+    if (qZIP != null){
+      query = query + `&location=${qZIP}`;
+    }else if (qCityState != null){
       query = query + `&location=${qCityState}`;
     }
+
     return query
   }
 
