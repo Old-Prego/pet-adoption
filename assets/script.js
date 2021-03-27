@@ -3,8 +3,23 @@ var petCard;
 var petLocation;
 var petList = document.getElementById("petList");
 var breedArray = []
-    // On loading the results page, this loads the query parameters from the search form
-    // It also puts these parameters into variables, so that it is easier to query the API
+var animalName;
+var animalPhoto;
+var animalBreed;
+var animalAge;
+var animalDistance;
+var pEmail;
+var pPhone;
+var pAddress1;
+var pAddress2;
+var pCity;
+var pState;
+var pZip;
+var animalStatus;
+var animalDescription;
+
+// On loading the results page, this loads the query parameters from the search form
+// It also puts these parameters into variables, so that it is easier to query the API
 var params = new URLSearchParams(document.location.search.substring(1));
 var qCityState = params.get("cityState");
 var qZIP = params.get("zip");
@@ -177,28 +192,108 @@ fetchAnimals(animalQParam);
 // This function is not being called yet, but will take data returned from the PetFinder API, build the cards, and append them to the screen.
 function populateCards(data) {
     for (var i = 0; i < data.animals.length; i++) {
+        try {
+            if (data.animals[i].name != null) {
+                animalName = data.animals[i].name;
+            } else {
+                animalName = "";
+            }
+            try {
+                if (data.animals[i].photos[0].full != null) {
+                    animalPhoto = data.animals[i].photos[0].full;
+                } else {
+                    animalPhoto = "";
+                }
+            } catch {
+                animalPhoto = "https://eagle-sensors.com/wp-content/uploads/unavailable-image.jpg";
+            }
 
-        petLocation = {
-            email: data.animals[i].contact.email,
-            phone: data.animals[i].contact.phone,
-            address1: data.animals[i].contact.address.address1,
-            address2: data.animals[i].contact.address.address2,
-            city: data.animals[i].contact.address.city,
-            state: data.animals[i].contact.address.state,
-            zip: data.animals[i].contact.address.postcode
-        };
+            if (data.animals[i].breeds.primary != null) {
+                animalBreed = data.animals[i].breeds.primary;
+            } else {
+                animalBreed = "";
+            }
+            if (data.animals[i].age != null) {
+                animalAge = data.animals[i].age;
+            } else {
+                animalAge = "";
+            }
+            if (data.animals[i].distance != null) {
+                animalDistance = data.animals[i].distance;
+            } else {
+                animalDistance = "";
+            }
+            if (data.animals[i].contact.email != null) {
+                pEmail = data.animals[i].contact.email;
+            } else {
+                pEmail = "";
+            }
+            if (data.animals[i].contact.phone != null) {
+                pPhone = data.animals[i].contact.phone;
+            } else {
+                pPhone = "";
+            }
+            if (data.animals[i].contact.address.address1 != null) {
+                pAddress1 = data.animals[i].contact.address.address1;
+            } else {
+                pAddress1 = "";
+            }
+            if (data.animals[i].contact.address.address1 != null) {
+                pAddress2 = data.animals[i].contact.address.address1;
+            } else {
+                pAddress2 = "";
+            }
+            if (data.animals[i].contact.address.city != null) {
+                pCity = data.animals[i].contact.address.city;
+            } else {
+                pCity = "";
+            }
+            if (data.animals[i].contact.address.state != null) {
+                pState = data.animals[i].contact.address.state;
+            } else {
+                pState = "";
+            }
+            if (data.animals[i].contact.address.postcode != null) {
+                pZip = data.animals[i].contact.address.postcode;
+            } else {
+                pZip = "";
+            }
+            if (data.animals[i].status != null) {
+                animalStatus = data.animals[i].status;
+            } else {
+                animalStatus = "";
+            }
+            if (data.animals[i].description != null) {
+                animalDescription = data.animals[i].description;
+            } else {
+                animalDescription = "";
+            }
 
-        petCard = buildPetCard(
-            data.animals[i].name,
-            data.animals[i].photos[0].full,
-            data.animals[i].breeds.primary,
-            data.animals[i].age,
-            Math.round(data.animals[i].distance),
-            petLocation,
-            data.animals[i].status,
-            data.animals[i].description
-        );
+            petLocation = {
+                email: pEmail,
+                phone: pPhone,
+                address1: pAddress1,
+                address2: pAddress2,
+                city: pCity,
+                state: pState,
+                zip: pZip
+            };
 
-        petList.appendChild(petCard);
+            petCard = buildPetCard(
+                animalName,
+                animalPhoto,
+                animalBreed,
+                animalAge,
+                Math.round(animalDistance),
+                petLocation,
+                animalStatus,
+                animalDescription
+            );
+
+            petList.appendChild(petCard);
+        } catch (error) {
+            // console.error(error);
+            continue;
+        }
     }
 };
