@@ -19,6 +19,7 @@ var animalStatus;
 var animalDescription;
 var lat;
 var lon;
+var geoDataReturn;
 
 // On loading the results page, this loads the query parameters from the search form
 // It also puts these parameters into variables, so that it is easier to query the API
@@ -69,7 +70,27 @@ function buildPetCard(petName,petImg,petBreed,petAge,petDist,petLoc,petStatus,pe
 
 function fetchCoord(address,city,state,zip){
 
+  var qAddress = address.split(' ').join('+');
+  var qCity = city.split(' ').join('+');
+  var qState = state.split(' ').join('+');
+  var qZIP = zip.split(' ').join('+');
 
+  var geoSearch = "https://maps.googleapis.com/maps/api/geocode/json?address=" + qAddress + ",+" + qCity + ",+" + qState + ",+" + qZIP + "&key=AIzaSyA0E2xlF5DnuUkpFRByU1eb_e-AbdZGjjM";
+
+  fetch(geoSearch)
+    .then(function(response){
+      return response.json();
+    })
+    .then(function(data){
+      generateMap(data);
+    })
+}
+
+function initMap(data){
+  console.log(data);
+
+  const uluru = {lat: data.results[0].geometry.location.lat, lng: data.results[0].geometry.location.lng};
+  const map = new google.maps.Map(document.getElementById)
 }
 
 // Space for the PetFinder API fetch
@@ -234,13 +255,16 @@ function populateCards(data){
           animalDescription = "";
         }
 
-        var coordsData = fetchCoord(pZip);
-        console.log(coordsData);
-        var curLat = coordsData[0];
-        var curLon = coordsData[1];
+        fetchCoord(pAddress1,pCity,pState,pZip);
 
-        console.log(curLat);
-        console.log(curLon);
+        console.log(geoDataReturn);
+        // console.log(coordsData);
+        // console.log(coordsData);
+        // var curLat = coordsData[0];
+        // var curLon = coordsData[1];
+
+        // console.log(curLat);
+        // console.log(curLon);
         
         petLocation = {
           email: pEmail,
