@@ -271,3 +271,10 @@ strong {
         width: 342px;
     }
 }
+
+.map{
+    visibility: visible;
+    display:flex;
+    height:300px;
+    width:100%;
+}

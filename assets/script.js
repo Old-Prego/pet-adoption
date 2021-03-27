@@ -60,7 +60,7 @@ function buildPetCard(petName,petImg,petBreed,petAge,petDist,petLoc,petStatus,pe
                 </br>
                 <p class='animal-details'>${petLoc.address1}, ${petLoc.address2}</p>
                 <p class='animal-details'>${petLoc.city}, ${petLoc.state} ${petLoc.zip}</p>
-                <div id="${petName}Map"></div>
+                <div id="${petName}Map" class="map"></div>
             </div>
         </div>
     </div>
@@ -283,13 +283,14 @@ function populateCards(data){
 };
 
 function generateMap(data,animalName){
+  console.log(data);
   console.log("Test1");
   var mapID = animalName + "Map";
   console.log("Test2");
   const uluru = {lat: data.results[0].geometry.location.lat, lng: data.results[0].geometry.location.lng};
   console.log("Test3");
   const map = new google.maps.Map(document.getElementById(mapID),{
-    zoom: 4,
+    zoom: 10,
     center: uluru,
   });
   console.log("Test4");
