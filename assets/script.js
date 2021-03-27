@@ -4,24 +4,13 @@ var petCard;
 var petLocation;
 var petList = document.getElementById("petList");
 
-// On loading the results page, this loads the query parameters from the search form
-// It also puts these parameters into variables, so that it is easier to query the API
-var params = new URLSearchParams(document.location.search.substring(1));
-var qCityState = params.get("cityState");
-var qZIP = params.get("zip");
-var qAnimal = params.get("animal");
-var qDistance = params.get("distance");
-var qDogBreed = params.get("dogBreed");
-var qCatBreed = params.get("catBreed");
-var qAge = params.get("Age");
-
 // Template tag parser courtesy of Nate
 // This takes template tags and parses them into HTML elements that are appendable to the current scope
 const html = (strings, ...values) => new DOMParser().parseFromString(strings.map((string, i) => strings[i] + values[i]).join(''), "text/html").body.firstChild;
 
 
 // This is the actual template for the HTML, with variables passed to it.
-function buildPetCard(petName,petImg,petBreed,petAge,petDist,petLoc, petStatus){
+function buildPetCard(petName,petImg,petBreed,petAge,petDist,petLoc,petStatus){
     
     let petCard = html`
 
@@ -40,7 +29,8 @@ function buildPetCard(petName,petImg,petBreed,petAge,petDist,petLoc, petStatus){
                 <p>Distance Away: ${petDist} miles</p>
 
                 <div id="addressCont">
-                    <h5>${petLoc.shelter}</h5>
+                    <h5>${petLoc.email}</h5>
+                    <h5>${petLoc.phone}</h5>
                     <p>${petLoc.address1}</p>
                     <p>${petLoc.address2}</p>
                     <p>${petLoc.city}</p>
@@ -54,14 +44,50 @@ function buildPetCard(petName,petImg,petBreed,petAge,petDist,petLoc, petStatus){
     return petCard;
 };
 
-// Space for the PetFinder API fetch
+// On loading the results page, this loads the query parameters from the search form
+// It also puts these parameters into variables, so that it is easier to query the API
+var params = new URLSearchParams(document.location.search.substring(1));
+var qCityState = params.get("cityState");
+var qZIP = params.get("zip");
+var qAnimal = params.get("animal");
+var qDistance = params.get("distance");
+var qDogBreed = params.get("dogBreed");
+var qCatBreed = params.get("catBreed");
+var qAge = params.get("Age");
 
-function fetchAnimals(){
+//Get inut from forum and orgnizes it inorder to add it to the url as parametes...
+function queryParmeters(qCityState,qZIP,qAnimal,qDistance,qDogBreed,qCatBreed,qAge){
+
+    query = `?type=${qAnimal}`
+    if (qAnimal == "dog"){
+      if (qDogBreed != null){
+        query = query + `&breed=${qDogBreed}`;
+      }
+    }else if (qAnimal == "cat"){
+      if (qCatBreed != null){
+        query = query + `&breed=${qCatBreed}`;
+      }
+    }
+    if (qDistance != null){
+      query = query + `&distance=${qDistance}`;
+    }
+    if (qAge != null){
+      query = query + `&age=${qAge}`;
+    }
+    if (qCityState != null){
+      query = query + `&location=${qCityState}`;
+    }
+    return query
+  }
+
+let animalQParam = queryParmeters(qCityState,qZIP,qAnimal,qDistance,qDogBreed,qCatBreed,qAge);
+
+function fetchAnimals(parameters){
 
   var key = "j4sCZuvwpfgBJBJkcTF1Q2jWK3imT2gtsdOUiC3QwKjtLahsYP";
   var secret = "aN0ZxQr0R1rBU7ikZCowpLOuVUQDqE0Z65Ck6Glb";
   var url = "https://api.petfinder.com/v2/animals"
-  let parameters = queryParmeters()
+  
 
   //uses the fetch api to get a current access token from the petfinder Api
   fetch('https://api.petfinder.com/v2/oauth2/token', {
@@ -90,6 +116,7 @@ function fetchAnimals(){
   }).then(function (data) {
     //data is printed to console.log, we can send to function once we have things up and running...
   	console.log('Animals', data);
+    populateCards(data);
   }).catch(function (error) {
   	console.log('YOU FOOL!', error );
 
@@ -97,57 +124,31 @@ function fetchAnimals(){
 
 }
 
-//Get inut from forum and orgnizes it inorder to add it to the url as parametes...
-function queryParmeters(){
-
-  query = `?type=${qAnimal}`
-  if (qAnimal == "dog"){
-    if (qDogBreed != null){
-      query = query + `&breed=${qDogBreed}`
-    }
-  }else if (qAnimal == "cat"){
-    if (qCatBreed != null){
-      query = query + `&breed=${qCatBreed}`
-    }
-  }
-  if (qOwner != null ){
-    query = query + `&owner=${qOwner}`
-  }
-  if (qDistance != null){
-    query = query + `&distance=${qDistance}`
-  }
-  if (qAge != null){
-    query = query + `&age=${qAge}`
-  }
-  if (qCityState == null){
-    query = query + `&cityState=${qCityState}`
-  }
-  return query
-}
+fetchAnimals(animalQParam);
 
 
 // This function is not being called yet, but will take data returned from the PetFinder API, build the cards, and append them to the screen.
 function populateCards(data){
-    for (var i = 0; i < data.length; i++){
+    for (var i = 0; i < data.animals.length; i++){
 
         petLocation = {
-            email: data[i].contact.email,
-            phone: data[i].contact.phone,
-            address1: data[i].contact.address.address1,
-            address2: data[i].contact.address.address2,
-            city: data[i].contact.address.city,
-            state: data[i].contact.address.state,
-            zip: data[i].contact.address.postcode
+            email: data.animals[i].contact.email,
+            phone: data.animals[i].contact.phone,
+            address1: data.animals[i].contact.address.address1,
+            address2: data.animals[i].contact.address.address2,
+            city: data.animals[i].contact.address.city,
+            state: data.animals[i].contact.address.state,
+            zip: data.animals[i].contact.address.postcode
         };
 
         petCard = buildPetCard(
-            data[i].name,
-            data[i].photos.full,
-            data[i].breed.primary,
-            data[i].age,
-            data[i].distance,
+            data.animals[i].name,
+            data.animals[i].photos[0].full,
+            data.animals[i].breeds.primary,
+            data.animals[i].age,
+            data.animals[i].distance,
             petLocation,
-            data[i].status
+            data.animals[i].status
             );
 
         petList.appendChild(petCard);
