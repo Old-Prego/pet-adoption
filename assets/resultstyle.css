@@ -1,0 +1,273 @@
+/* Header Layout */
+
+.callout {
+    background-color: #fcf0e8;
+    padding: 0px !important;
+    padding-top: 48px !important;
+}
+
+h1 {
+    font-weight: 700;
+}
+
+
+/* SideBar Layout */
+
+.sidepanel {
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgb(192, 182, 175, 0.9);
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidepanel a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: black;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidepanel a:hover {
+    color: #f1f1f1;
+}
+
+.sidepanel .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+}
+
+.openbtn {
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+    background-color: #c0b7b1;
+    color: black;
+    padding: 10px 15px;
+    border: none;
+}
+
+.openbtn:hover {
+    background-color: #444;
+}
+
+
+/* Form Layout */
+
+.form {
+    margin: auto;
+    width: fit-content;
+}
+
+#distanceRange {
+    color: rgb(88, 85, 82, 0.9) !important
+}
+
+#buttondiv {
+    margin: 15px;
+    margin-bottom: 0px;
+    padding-bottom: 15px;
+}
+
+#submitBtn {
+    margin: 0px !important;
+    background-color: rgb(88, 85, 82, 0.9) !important;
+}
+
+label {
+    font-weight: 600;
+    color: black
+}
+
+#distanceRange {
+    width: 100%;
+}
+
+#distanceNumber {
+    margin: 0;
+    margin-top: 16px;
+}
+
+h3 {
+    text-align: center;
+    margin: 20px;
+}
+
+
+/* Slider Layout*/
+
+#slidediv {
+    width: 100%;
+}
+
+#distanceRange {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 10px;
+    border-radius: 5px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+#distanceRange:hover {
+    opacity: 1;
+}
+
+#distanceRange::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 23px;
+    height: 24px;
+    border-radius: 50%;
+    background: white;
+    cursor: pointer;
+}
+
+#distanceRange::-moz-range-thumb {
+    width: 23px;
+    height: 24px;
+    border-radius: 50%;
+    background: white;
+    cursor: pointer;
+}
+
+
+/* Card Layout */
+
+#nameofpet {
+    background-color: black;
+}
+
+.card-container {
+    height: 500px;
+    width: 242px;
+    margin: auto;
+}
+
+.card-flex-animal .card-divider {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    background: transparent;
+}
+
+.card-flex-animal .card-divider p {
+    margin-bottom: 0;
+}
+
+.card-flex-animal .card-actions .fa:not(:last-of-type) {
+    margin-right: 1rem;
+}
+
+.card-flex-animal .card-image {
+    position: relative;
+}
+
+.card-flex-animal .card-name {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: 3%;
+}
+
+.card-flex-animal .card-section .card-title {
+    font-family: 'Merriweather', serif;
+    font-weight: bold;
+    font-size: 1.75rem;
+    margin-bottom: 0;
+}
+
+.card-flex-animal .card-section .main-details {
+    font-size: 1.0rem;
+    opacity: 0.5;
+    padding-bottom: 0.75rem;
+}
+
+strong {
+    color: #2199e8;
+}
+
+.animal-details {
+    font-family: 'Merriweather', serif;
+    font-size: 1rem;
+    margin: 0px;
+}
+
+.product-filters {
+    padding: 0.5rem 1.5rem;
+    background-color: #fefefe;
+    margin-top: 2.5rem;
+}
+
+.product-filters label {
+    color: #8a8a8a;
+}
+
+.product-filters .menu.nested {
+    margin-left: 0rem;
+    margin-bottom: 0.9rem;
+}
+
+.product-filters .menu>li>a {
+    padding-left: 0;
+    color: #4a4a4a;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.product-filters .is-accordion-submenu-parent>a::after {
+    border-color: #cacaca transparent transparent;
+}
+
+.product-filters .clear-all {
+    font-size: 0.9rem;
+    color: #cacaca;
+}
+
+.product-filters .more {
+    color: #1779ba;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.product-filters-header {
+    font-size: 1.25rem;
+    padding-top: 0.5rem;
+}
+
+.product-filters-tab {
+    border-top: 1px solid #e6e6e6;
+}
+
+.product-filters-tab:last-child() {
+    border-bottom: 1px solid #e6e6e6;
+}
+
+.mobile-product-filters {
+    border-bottom: 1px solid #e6e6e6;
+}
+
+#petList {
+    margin: auto;
+}
+
+@media only screen and (min-width: 1400px) {
+    .card-container {
+        height: 600px;
+        width: 342px;
+    }
+}
