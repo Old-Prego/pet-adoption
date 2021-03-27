@@ -10,3 +10,4 @@ function syncLengthRange(e) {
   distanceNumber.value = value
   distanceRange.value = value
 }
+
