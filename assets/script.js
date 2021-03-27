@@ -23,7 +23,7 @@ const html = (strings, ...values) => new DOMParser().parseFromString(strings.map
 
 
 // This is the actual template for the HTML, with variables passed to it.
-function buildPetCard(petName,petImg,petBreed,petAge,petDist,petLoc,petStatus){
+function buildPetCard(petName,petImg,petBreed,petAge,petDist,petLoc,petStatus,petDescr){
 
     let petCard = html `
     <div class='columns small-12 medium-4 large-3 end'>
@@ -36,11 +36,11 @@ function buildPetCard(petName,petImg,petBreed,petAge,petDist,petLoc,petStatus){
             <div class="card-section">
                 <h3 class="card-title">${petBreed}</h3>
                 <div class="main-details">
-                    <span class="price">$${petPrice} | </span>
                     <span class="age">${petAge}yo | </span>
+                    <span class="status">Adoption Status: ${petStatus}</span>
                     <span class="distance">${petDist}mi away</span>
                 </div>
-                <p>Insert Description</p>
+                <p>${petDescr}</p>
                 </br>
                 <p class='animal-details'>${petLoc.address1}, ${petLoc.address2}</p>
                 <p class='animal-details'>${petLoc.city}, ${petLoc.state} ${petLoc.zip}</p>
@@ -109,18 +109,18 @@ function queryParmeters(qCityState,qZIP,qAnimal,qDistance,qDogBreed,qCatBreed,qA
 
     query = `?type=${qAnimal}`
     if (qAnimal == "dog"){
-      if (qDogBreed != null){
+      if (qDogBreed != "any"){
         query = query + `&breed=${qDogBreed}`;
       }
     }else if (qAnimal == "cat"){
-      if (qCatBreed != null){
+      if (qCatBreed != "any"){
         query = query + `&breed=${qCatBreed}`;
       }
     }
     if (qDistance != null){
       query = query + `&distance=${qDistance}`;
     }
-    if (qAge != null){
+    if (qAge != "any"){
       query = query + `&age=${qAge}`;
     }
     if (qZIP != null){
@@ -152,9 +152,6 @@ function fetchAnimals(parameters){
   	return response.json();
 
   }).then(function (data) {
-  	console.log('Acess token', data);
-    console.log(data.token_type)
-    console.log(data.access_token)
     //A second call going to be made to the Api, this one will use the token data to retrive information,
     return fetch(url + parameters, {
       headers: {
@@ -198,9 +195,10 @@ function populateCards(data){
             data.animals[i].photos[0].full,
             data.animals[i].breeds.primary,
             data.animals[i].age,
-            data.animals[i].distance,
+            Math.round(data.animals[i].distance),
             petLocation,
-            data.animals[i].status
+            data.animals[i].status,
+            data.animals[i].description
             );
 
         petList.appendChild(petCard);

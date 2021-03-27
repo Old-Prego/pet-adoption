@@ -25,7 +25,7 @@
 
             <!-- Form -->
             <div class="form">
-                <form>
+                <form id="petForm" name="petForm">
                     <div class='row'>
 
                         <div class="columns small-6 medium-4 large-4">
@@ -51,29 +51,24 @@
 
                         <div id='dogBreeds' class="columns small-6 medium-4 large-4">
                             <label>Breeds
-                                <select name="animal" id="animalSelect" type="text">
-                                    <option value="dogBreed1">Breed1</option>
-                                    <option value="dogBreed2">Breed2</option>
-                                    <option value="dogBreed3">Breed3</option>
-                                    <option value="dogBreed4">Breed4</option>
+                                <select name="dogBreed" id="dogBreedSelect" type="text">
+                                    <option value="any">Any</option>
                                 </select>
                             </label>
                         </div>
 
                         <div id='catBreeds' class="columns small-6 medium-4 large-4">
                             <label>Breeds
-                                <select name="animal" id="animalSelect" type="text">
-                                    <option value="catBreed1">Breed1</option>
-                                    <option value="catBreed2">Breed2</option>
-                                    <option value="catBreed3">Breed3</option>
-                                    <option value="catBreed4">Breed4</option>
+                                <select name="catBreed" id="catBreedSelect" type="text">
+                                    <option value="any">Any</option>
                                 </select>
                             </label>
                         </div>
 
                         <div class="columns small-6 medium-4 large-4">
                             <label>Age
-                                <select name="animal" id="animalSelect" type="text">
+                                <select name="age" id="ageSelect" type="text">
+                                    <option value="any">Any</option>
                                     <option value="baby">Baby</option>
                                     <option value="young">Young</option>
                                     <option value="adult">Adult</option>
@@ -130,6 +125,7 @@
     <script src="https://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.js"></script>
     <script src="assets/script.js"></script>
     <script src="assets/slider.js"></script>
+    <script src="assets/formScript.js"></script>
 </body>
 
 </html>
