@@ -67,23 +67,9 @@ function buildPetCard(petName,petImg,petBreed,petAge,petDist,petLoc,petStatus,pe
     return petCard;
 };
 
-function fetchCoord(zip){
+function fetchCoord(address,city,state,zip){
 
-  if (zip != ""){
-    var geoSearch = "https://api.openweathermap.org/geo/1.0/zip?zip=" + zip + ",US&appid=c6eaafdda32a99ec9f1f55f17ec8b9a3";
-    fetch(geoSearch)
-      .then(function(response){
-        return response.json();
-      })
-      .then(function(data) {
-        console.log(data);
-        lat = data.lat;
-        lon = data.lon;
-        
-      })
-  }
 
-  return [lat,lon];
 }
 
 // Space for the PetFinder API fetch
