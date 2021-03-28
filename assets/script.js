@@ -63,8 +63,12 @@ function buildPetCard(petName, petImg, petBreed, petAge, petDist, petLoc, petSta
                 </div>
                 <p>${petDescr}</p>
                 </br>
-                <p class='animal-details'>${petLoc.address1}, ${petLoc.address2}</p>
-                <p class='animal-details'>${petLoc.city}, ${petLoc.state} ${petLoc.zip}</p>
+                <p class='contact'><b>Contact</b></p>
+                <p id='email' class='animal-details'><strong>Email:</strong> ${petLoc.email}</p>
+                <p class='animal-details'><strong>Phone:</strong> ${petLoc.phone}</p>
+                </br>
+                <p class='animal-details'><strong>${petLoc.address1}</strong></p>
+                <p class='animal-details'><strong>${petLoc.city}, ${petLoc.state} ${petLoc.zip}<strong></p>
                 <div id="${petName}Map" class="map"></div>
             </div>
         </div>
@@ -74,22 +78,22 @@ function buildPetCard(petName, petImg, petBreed, petAge, petDist, petLoc, petSta
     return petCard;
 };
 
-function fetchCoord(address,city,state,zip,animalName){
+function fetchCoord(address, city, state, zip, animalName) {
 
-  var qAddress = address.split(' ').join('+');
-  var qCity = city.split(' ').join('+');
-  var qState = state.split(' ').join('+');
-  var qZIP = zip.split(' ').join('+');
+    var qAddress = address.split(' ').join('+');
+    var qCity = city.split(' ').join('+');
+    var qState = state.split(' ').join('+');
+    var qZIP = zip.split(' ').join('+');
 
-  var geoSearch = "https://maps.googleapis.com/maps/api/geocode/json?address=" + qAddress + ",+" + qCity + ",+" + qState + ",+" + qZIP + "&key=AIzaSyA0E2xlF5DnuUkpFRByU1eb_e-AbdZGjjM";
+    var geoSearch = "https://maps.googleapis.com/maps/api/geocode/json?address=" + qAddress + ",+" + qCity + ",+" + qState + ",+" + qZIP + "&key=AIzaSyA0E2xlF5DnuUkpFRByU1eb_e-AbdZGjjM";
 
-  fetch(geoSearch)
-    .then(function(response){
-      return response.json();
-    })
-    .then(function(data){
-      generateMap(data,animalName);
-    })
+    fetch(geoSearch)
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            generateMap(data, animalName);
+        })
 }
 
 // Space for the PetFinder API fetch
@@ -132,181 +136,181 @@ function queryParmeters(qCityState, qZIP, qAnimal, qDistance, qDogBreed, qCatBre
     return query
 }
 
-let animalQParam = queryParmeters(qCityState,qZIP,qAnimal,qDistance,qDogBreed,qCatBreed,qAge);
+let animalQParam = queryParmeters(qCityState, qZIP, qAnimal, qDistance, qDogBreed, qCatBreed, qAge);
 
-function fetchAnimals(parameters){
+function fetchAnimals(parameters) {
 
-  var key = "j4sCZuvwpfgBJBJkcTF1Q2jWK3imT2gtsdOUiC3QwKjtLahsYP";
-  var secret = "aN0ZxQr0R1rBU7ikZCowpLOuVUQDqE0Z65Ck6Glb";
-  var url = "https://api.petfinder.com/v2/animals"
+    var key = "j4sCZuvwpfgBJBJkcTF1Q2jWK3imT2gtsdOUiC3QwKjtLahsYP";
+    var secret = "aN0ZxQr0R1rBU7ikZCowpLOuVUQDqE0Z65Ck6Glb";
+    var url = "https://api.petfinder.com/v2/animals"
 
 
-  //uses the fetch api to get a current access token from the petfinder Api
-  fetch('https://api.petfinder.com/v2/oauth2/token', {
-  	method: 'POST',
-  	body: 'grant_type=client_credentials&client_id=' + key + '&client_secret=' + secret,
-  	headers: {
-  		'Content-Type': 'application/x-www-form-urlencoded'
-  	}
-  }).then(function (response) {
-  	return response.json();
+    //uses the fetch api to get a current access token from the petfinder Api
+    fetch('https://api.petfinder.com/v2/oauth2/token', {
+        method: 'POST',
+        body: 'grant_type=client_credentials&client_id=' + key + '&client_secret=' + secret,
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    }).then(function(response) {
+        return response.json();
 
-  }).then(function (data) {
-    //A second call going to be made to the Api, this one will use the token data to retrive information,
-    return fetch(url + parameters, {
-      headers: {
-        'Authorization': data.token_type + ' ' + data.access_token,
-        'Content-Type' : 'application/x-www-form-urlencoded'
-      }
-    })
-  }).then(function (response) {
-  	return response.json();
+    }).then(function(data) {
+        //A second call going to be made to the Api, this one will use the token data to retrive information,
+        return fetch(url + parameters, {
+            headers: {
+                'Authorization': data.token_type + ' ' + data.access_token,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        })
+    }).then(function(response) {
+        return response.json();
 
-  }).then(function (data) {
-    //data is printed to console.log, we can send to function once we have things up and running...
-    populateCards(data);
+    }).then(function(data) {
+        //data is printed to console.log, we can send to function once we have things up and running...
+        populateCards(data);
 
-  }).catch(function (error) {
-  	console.log('YOU FOOL!', error );
+    }).catch(function(error) {
+        console.log('YOU FOOL!', error);
 
-  });
+    });
 
 }
 
 fetchAnimals(animalQParam);
 
 // This function is not being called yet, but will take data returned from the PetFinder API, build the cards, and append them to the screen.
-function populateCards(data){
-    for (var i = 0; i < data.animals.length; i++){
-      try{
-        if (data.animals[i].name != null){
-          animalName = data.animals[i].name;
-        }else{
-          animalName = "";
-        }
-        try{
-          if (data.animals[i].photos[0].full != null){
-            animalPhoto = data.animals[i].photos[0].full;
-          }else{
-            animalPhoto = "";
-          }
-        } catch{
-          animalPhoto = "https://eagle-sensors.com/wp-content/uploads/unavailable-image.jpg";
-        }
+function populateCards(data) {
+    for (var i = 0; i < data.animals.length; i++) {
+        try {
+            if (data.animals[i].name != null) {
+                animalName = data.animals[i].name;
+            } else {
+                animalName = "";
+            }
+            try {
+                if (data.animals[i].photos[0].full != null) {
+                    animalPhoto = data.animals[i].photos[0].full;
+                } else {
+                    animalPhoto = "";
+                }
+            } catch {
+                animalPhoto = "https://eagle-sensors.com/wp-content/uploads/unavailable-image.jpg";
+            }
 
-        if (data.animals[i].breeds.primary != null){
-          animalBreed = data.animals[i].breeds.primary;
-        }else{
-          animalBreed = "";
-        }
-        if (data.animals[i].age != null){
-          animalAge = data.animals[i].age;
-        }else{
-          animalAge = "";
-        }
-        if (data.animals[i].distance != null){
-          animalDistance = data.animals[i].distance;
-        }else{
-          animalDistance = "";
-        }
-        if (data.animals[i].contact.email != null){
-          pEmail = data.animals[i].contact.email;
-        }else{
-          pEmail = "";
-        }
-        if (data.animals[i].contact.phone != null){
-          pPhone = data.animals[i].contact.phone;
-        }else{
-          pPhone = "";
-        }
-        if (data.animals[i].contact.address.address1 != null){
-          pAddress1 = data.animals[i].contact.address.address1;
-        }else{
-          pAddress1 = "";
-        }
-        if (data.animals[i].contact.address.address1 != null){
-          pAddress2 = data.animals[i].contact.address.address1;
-        }else{
-          pAddress2 = "";
-        }
-        if (data.animals[i].contact.address.city != null){
-          pCity = data.animals[i].contact.address.city;
-        }else{
-          pCity = "";
-        }
-        if (data.animals[i].contact.address.state != null){
-          pState = data.animals[i].contact.address.state;
-        }else{
-          pState = "";
-        }
-        if (data.animals[i].contact.address.postcode != null){
-          pZip = data.animals[i].contact.address.postcode;
-        }else{
-          pZip = "";
-        }
-        if (data.animals[i].status != null){
-          animalStatus = data.animals[i].status;
-        }else{
-          animalStatus = "";
-        }
-        if (data.animals[i].description != null){
-          animalDescription = data.animals[i].description;
-        }else{
-          animalDescription = "";
-        }
+            if (data.animals[i].breeds.primary != null) {
+                animalBreed = data.animals[i].breeds.primary;
+            } else {
+                animalBreed = "";
+            }
+            if (data.animals[i].age != null) {
+                animalAge = data.animals[i].age;
+            } else {
+                animalAge = "";
+            }
+            if (data.animals[i].distance != null) {
+                animalDistance = data.animals[i].distance;
+            } else {
+                animalDistance = "";
+            }
+            if (data.animals[i].contact.email != null) {
+                pEmail = data.animals[i].contact.email;
+            } else {
+                pEmail = "";
+            }
+            if (data.animals[i].contact.phone != null) {
+                pPhone = data.animals[i].contact.phone;
+            } else {
+                pPhone = "N/A";
+            }
+            if (data.animals[i].contact.address.address1 != null) {
+                pAddress1 = data.animals[i].contact.address.address1;
+            } else {
+                pAddress1 = "";
+            }
+            if (data.animals[i].contact.address.address1 != null) {
+                pAddress2 = data.animals[i].contact.address.address1;
+            } else {
+                pAddress2 = "";
+            }
+            if (data.animals[i].contact.address.city != null) {
+                pCity = data.animals[i].contact.address.city;
+            } else {
+                pCity = "";
+            }
+            if (data.animals[i].contact.address.state != null) {
+                pState = data.animals[i].contact.address.state;
+            } else {
+                pState = "";
+            }
+            if (data.animals[i].contact.address.postcode != null) {
+                pZip = data.animals[i].contact.address.postcode;
+            } else {
+                pZip = "";
+            }
+            if (data.animals[i].status != null) {
+                animalStatus = data.animals[i].status;
+            } else {
+                animalStatus = "";
+            }
+            if (data.animals[i].description != null) {
+                animalDescription = data.animals[i].description;
+            } else {
+                animalDescription = "";
+            }
 
-        petLocation = {
-          email: pEmail,
-          phone: pPhone,
-          address1: pAddress1,
-          address2: pAddress2,
-          city: pCity,
-          state: pState,
-          zip: pZip
-      };
+            petLocation = {
+                email: pEmail,
+                phone: pPhone,
+                address1: pAddress1,
+                address2: pAddress2,
+                city: pCity,
+                state: pState,
+                zip: pZip
+            };
 
 
-        petCard = buildPetCard(
-            animalName,
-            animalPhoto,
-            animalBreed,
-            animalAge,
-            Math.round(animalDistance),
-            petLocation,
-            animalStatus,
-            animalDescription
+            petCard = buildPetCard(
+                animalName,
+                animalPhoto,
+                animalBreed,
+                animalAge,
+                Math.round(animalDistance),
+                petLocation,
+                animalStatus,
+                animalDescription
             );
 
-        petList.appendChild(petCard);
+            petList.appendChild(petCard);
 
 
-        fetchCoord(pAddress1,pCity,pState,pZip,animalName);
+            fetchCoord(pAddress1, pCity, pState, pZip, animalName);
 
-      } catch (error) {
-        console.error(error);
-        continue;
-      }
+        } catch (error) {
+            console.error(error);
+            continue;
+        }
     }
 };
 
-function generateMap(data,animalName){
-  console.log(data);
-  console.log("Test1");
-  var mapID = animalName + "Map";
-  console.log("Test2");
-  const uluru = {lat: data.results[0].geometry.location.lat, lng: data.results[0].geometry.location.lng};
-  console.log("Test3");
-  const map = new google.maps.Map(document.getElementById(mapID),{
-    zoom: 10,
-    center: uluru,
-  });
-  console.log("Test4");
-  const marker = new google.maps.Marker({
-    position: uluru,
-    map: map,
-  });
+function generateMap(data, animalName) {
+    console.log(data);
+    console.log("Test1");
+    var mapID = animalName + "Map";
+    console.log("Test2");
+    const uluru = { lat: data.results[0].geometry.location.lat, lng: data.results[0].geometry.location.lng };
+    console.log("Test3");
+    const map = new google.maps.Map(document.getElementById(mapID), {
+        zoom: 10,
+        center: uluru,
+    });
+    console.log("Test4");
+    const marker = new google.maps.Marker({
+        position: uluru,
+        map: map,
+    });
 }
 
-function initMap(){
+function initMap() {
 
 }
