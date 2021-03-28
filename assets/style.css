@@ -18,6 +18,10 @@ body {
     color: #fefefe;
 }
 
+.hide{
+  display: none;
+}
+
 #buttondiv {
     margin: 15px;
     margin-bottom: 0px;

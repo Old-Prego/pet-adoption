@@ -1,9 +1,8 @@
-
-
 // General global variables. petList gets the location of where the HTML templates will be dumped.
 var petCard;
 var petLocation;
 var petList = document.getElementById("petList");
+
 var breedArray = []
 var animalName;
 var animalPhoto;
@@ -19,6 +18,9 @@ var pState;
 var pZip;
 var animalStatus;
 var animalDescription;
+var lat;
+var lon;
+var geoDataReturn;
 
 // On loading the results page, this loads the query parameters from the search form
 // It also puts these parameters into variables, so that it is easier to query the API
@@ -34,6 +36,7 @@ var qAge = params.get("Age");
 // Template tag parser courtesy of Nate
 // This takes template tags and parses them into HTML elements that are appendable to the current scope
 const html = (strings, ...values) => new DOMParser().parseFromString(strings.map((string, i) => strings[i] + values[i]).join(''), "text/html").body.firstChild;
+//To help retain data on to local storage from favorited pets...
 
 
 
@@ -48,6 +51,9 @@ function buildPetCard(petName,petImg,petBreed,petAge,petDist,petLoc,petStatus,pe
                 <img src="${petImg}">
                 <span id='nameofpet' class="label card-name">${petName}</span>
             </div>
+            <div class="divbutton">
+              <button type="button" style="display: none;">Hello</button>
+            </div>
             <div class="card-section">
                 <h3 class="card-title">${petBreed}</h3>
                 <div class="main-details">
@@ -59,6 +65,7 @@ function buildPetCard(petName,petImg,petBreed,petAge,petDist,petLoc,petStatus,pe
                 </br>
                 <p class='animal-details'>${petLoc.address1}, ${petLoc.address2}</p>
                 <p class='animal-details'>${petLoc.city}, ${petLoc.state} ${petLoc.zip}</p>
+                <div id="${petName}Map" class="map"></div>
             </div>
         </div>
     </div>
@@ -68,44 +75,24 @@ function buildPetCard(petName,petImg,petBreed,petAge,petDist,petLoc,petStatus,pe
 };
 
 
-//Breed Api Fetch, grabs breeds based on Animal of choice and returns them as search parameters
 
-function fetchBreeds(){
-  var key = "j4sCZuvwpfgBJBJkcTF1Q2jWK3imT2gtsdOUiC3QwKjtLahsYP";
-  var secret = "aN0ZxQr0R1rBU7ikZCowpLOuVUQDqE0Z65Ck6Glb";
-  var url  = "https://api.petfinder.com/v2/types/"
-  fetch('https://api.petfinder.com/v2/oauth2/token', {
-  	method: 'POST',
-  	body: 'grant_type=client_credentials&client_id=' + key + '&client_secret=' + secret,
-  	headers: {
-  		'Content-Type': 'application/x-www-form-urlencoded'
-  	}
-  }).then(function (response) {
-  	return response.json();
+function fetchCoord(address,city,state,zip,animalName){
 
-  }).then(function (data) {
-    //A second call going to be made to the Api, this one will use the token data to retrive information,
-    return fetch(url + qAnimal + "/breeds", {
-      headers: {
-        'Authorization': data.token_type + ' ' + data.access_token,
-        'Content-Type' : 'application/x-www-form-urlencoded'
-      }
+  var qAddress = address.split(' ').join('+');
+  var qCity = city.split(' ').join('+');
+  var qState = state.split(' ').join('+');
+  var qZIP = zip.split(' ').join('+');
+
+  var geoSearch = "https://maps.googleapis.com/maps/api/geocode/json?address=" + qAddress + ",+" + qCity + ",+" + qState + ",+" + qZIP + "&key=AIzaSyA0E2xlF5DnuUkpFRByU1eb_e-AbdZGjjM";
+
+  fetch(geoSearch)
+    .then(function(response){
+      return response.json();
     })
-  }).then(function (response) {
-  	return response.json();
-
-  }).then(function (data) {
-    for (i = 0 ; i < data.breeds.length; i++){
-      breedArray[i] = data.breeds[i].name
-      //direct the data to drop down
-      console.log(breedArray[i])
-    }
-  }).catch(function (error) {
-  	console.log('YOU FOOL!', error );
-
-  });
+    .then(function(data){
+      generateMap(data,animalName);
+    })
 }
-
 
 // Space for the PetFinder API fetch
 // On loading the results page, this loads the query parameters from the search form
@@ -154,7 +141,7 @@ function fetchAnimals(parameters){
   var key = "j4sCZuvwpfgBJBJkcTF1Q2jWK3imT2gtsdOUiC3QwKjtLahsYP";
   var secret = "aN0ZxQr0R1rBU7ikZCowpLOuVUQDqE0Z65Ck6Glb";
   var url = "https://api.petfinder.com/v2/animals"
-  
+
 
   //uses the fetch api to get a current access token from the petfinder Api
   fetch('https://api.petfinder.com/v2/oauth2/token', {
@@ -179,8 +166,8 @@ function fetchAnimals(parameters){
 
   }).then(function (data) {
     //data is printed to console.log, we can send to function once we have things up and running...
-  	console.log('Animals', data);
     populateCards(data);
+
   }).catch(function (error) {
   	console.log('YOU FOOL!', error );
 
@@ -189,7 +176,6 @@ function fetchAnimals(parameters){
 }
 
 fetchAnimals(animalQParam);
-
 
 // This function is not being called yet, but will take data returned from the PetFinder API, build the cards, and append them to the screen.
 function populateCards(data){
@@ -209,7 +195,7 @@ function populateCards(data){
         } catch{
           animalPhoto = "https://eagle-sensors.com/wp-content/uploads/unavailable-image.jpg";
         }
-        
+
         if (data.animals[i].breeds.primary != null){
           animalBreed = data.animals[i].breeds.primary;
         }else{
@@ -270,7 +256,7 @@ function populateCards(data){
         }else{
           animalDescription = "";
         }
-        
+
         petLocation = {
           email: pEmail,
           phone: pPhone,
@@ -280,6 +266,7 @@ function populateCards(data){
           state: pState,
           zip: pZip
       };
+
 
         petCard = buildPetCard(
             animalName,
@@ -293,9 +280,35 @@ function populateCards(data){
             );
 
         petList.appendChild(petCard);
+
+
+        fetchCoord(pAddress1,pCity,pState,pZip,animalName);
+
       } catch (error) {
-        // console.error(error);
+        console.error(error);
         continue;
       }
     }
 };
+
+function generateMap(data,animalName){
+  console.log(data);
+  console.log("Test1");
+  var mapID = animalName + "Map";
+  console.log("Test2");
+  const uluru = {lat: data.results[0].geometry.location.lat, lng: data.results[0].geometry.location.lng};
+  console.log("Test3");
+  const map = new google.maps.Map(document.getElementById(mapID),{
+    zoom: 10,
+    center: uluru,
+  });
+  console.log("Test4");
+  const marker = new google.maps.Marker({
+    position: uluru,
+    map: map,
+  });
+}
+
+function initMap(){
+
+}
