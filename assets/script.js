@@ -9,6 +9,7 @@ var animalPhoto;
 var animalBreed;
 var animalAge;
 var animalDistance;
+var animalLink;
 var pEmail;
 var pPhone;
 var pAddress1;
@@ -41,16 +42,18 @@ const html = (strings, ...values) => new DOMParser().parseFromString(strings.map
 
 
 // This is the actual template for the HTML, with variables passed to it.
-function buildPetCard(petName, petImg, petBreed, petAge, petDist, petLoc, petStatus, petDescr) {
+function buildPetCard(petName, petImg, petBreed, petAge, petDist, petLoc, petStatus, petDescr,petLink) {
 
     let petCard = html `
     <div class='test columns small-12 medium-4 large-3 end'>
     <div class='card-container'>
         <div id='${petName}' class="card-flex-animal card">
-            <div class="card-image">
-                <img class='petImg' src="${petImg}">
-                <span id='nameofpet' class="label card-name">${petName}</span>
-            </div>
+            <a href="${petLink}" target="_blank">
+              <div class="card-image">
+                  <img class='petImg' src="${petImg}">
+                  <span id='nameofpet' class="label card-name">${petName}</span>
+              </div>
+            </a>
             <div class="divbutton">
               <button type="button" style="display: none;">Hello</button>
             </div>
@@ -254,6 +257,11 @@ function populateCards(data){
         }else{
           animalDescription = "";
         }
+        if (data.animals[i].url != null){
+          animalLink = data.animals[i].url;
+        }else{
+          animalLink = "";
+        }
 
         petLocation = {
           email: pEmail,
@@ -274,7 +282,8 @@ function populateCards(data){
             Math.round(animalDistance),
             petLocation,
             animalStatus,
-            animalDescription
+            animalDescription,
+            animalLink
             );
 
         petList.appendChild(petCard);
@@ -290,17 +299,12 @@ function populateCards(data){
 };
 
 function generateMap(data,animalName){
-  console.log(data);
-  console.log("Test1");
   var mapID = animalName + "Map";
-  console.log("Test2");
   const uluru = {lat: data.results[0].geometry.location.lat, lng: data.results[0].geometry.location.lng};
-  console.log("Test3");
   const map = new google.maps.Map(document.getElementById(mapID),{
     zoom: 10,
     center: uluru,
   });
-  console.log("Test4");
   const marker = new google.maps.Marker({
     position: uluru,
     map: map,
