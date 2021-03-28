@@ -66,8 +66,12 @@ function buildPetCard(petName, petImg, petBreed, petAge, petDist, petLoc, petSta
                 </div>
                 <p>${petDescr}</p>
                 </br>
-                <p class='animal-details'>${petLoc.address1}, ${petLoc.address2}</p>
-                <p class='animal-details'>${petLoc.city}, ${petLoc.state} ${petLoc.zip}</p>
+                <p class='contact'><b>Contact</b></p>
+                <p id='email' class='animal-details'><strong>Email:</strong> ${petLoc.email}</p>
+                <p class='animal-details'><strong>Phone:</strong> ${petLoc.phone}</p>
+                </br>
+                <p class='animal-details'><strong>${petLoc.address1}</strong></p>
+                <p class='animal-details'><strong>${petLoc.city}, ${petLoc.state} ${petLoc.zip}<strong></p>
                 <div id="${petName}Map" class="map"></div>
             </div>
         </div>
@@ -77,22 +81,22 @@ function buildPetCard(petName, petImg, petBreed, petAge, petDist, petLoc, petSta
     return petCard;
 };
 
-function fetchCoord(address,city,state,zip,animalName){
+function fetchCoord(address, city, state, zip, animalName) {
 
-  var qAddress = address.split(' ').join('+');
-  var qCity = city.split(' ').join('+');
-  var qState = state.split(' ').join('+');
-  var qZIP = zip.split(' ').join('+');
+    var qAddress = address.split(' ').join('+');
+    var qCity = city.split(' ').join('+');
+    var qState = state.split(' ').join('+');
+    var qZIP = zip.split(' ').join('+');
 
-  var geoSearch = "https://maps.googleapis.com/maps/api/geocode/json?address=" + qAddress + ",+" + qCity + ",+" + qState + ",+" + qZIP + "&key=AIzaSyA0E2xlF5DnuUkpFRByU1eb_e-AbdZGjjM";
+    var geoSearch = "https://maps.googleapis.com/maps/api/geocode/json?address=" + qAddress + ",+" + qCity + ",+" + qState + ",+" + qZIP + "&key=AIzaSyA0E2xlF5DnuUkpFRByU1eb_e-AbdZGjjM";
 
-  fetch(geoSearch)
-    .then(function(response){
-      return response.json();
-    })
-    .then(function(data){
-      generateMap(data,animalName);
-    })
+    fetch(geoSearch)
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            generateMap(data, animalName);
+        })
 }
 
 // Space for the PetFinder API fetch
@@ -135,44 +139,44 @@ function queryParmeters(qCityState, qZIP, qAnimal, qDistance, qDogBreed, qCatBre
     return query
 }
 
-let animalQParam = queryParmeters(qCityState,qZIP,qAnimal,qDistance,qDogBreed,qCatBreed,qAge);
+let animalQParam = queryParmeters(qCityState, qZIP, qAnimal, qDistance, qDogBreed, qCatBreed, qAge);
 
-function fetchAnimals(parameters){
+function fetchAnimals(parameters) {
 
-  var key = "j4sCZuvwpfgBJBJkcTF1Q2jWK3imT2gtsdOUiC3QwKjtLahsYP";
-  var secret = "aN0ZxQr0R1rBU7ikZCowpLOuVUQDqE0Z65Ck6Glb";
-  var url = "https://api.petfinder.com/v2/animals"
+    var key = "j4sCZuvwpfgBJBJkcTF1Q2jWK3imT2gtsdOUiC3QwKjtLahsYP";
+    var secret = "aN0ZxQr0R1rBU7ikZCowpLOuVUQDqE0Z65Ck6Glb";
+    var url = "https://api.petfinder.com/v2/animals"
 
 
-  //uses the fetch api to get a current access token from the petfinder Api
-  fetch('https://api.petfinder.com/v2/oauth2/token', {
-  	method: 'POST',
-  	body: 'grant_type=client_credentials&client_id=' + key + '&client_secret=' + secret,
-  	headers: {
-  		'Content-Type': 'application/x-www-form-urlencoded'
-  	}
-  }).then(function (response) {
-  	return response.json();
+    //uses the fetch api to get a current access token from the petfinder Api
+    fetch('https://api.petfinder.com/v2/oauth2/token', {
+        method: 'POST',
+        body: 'grant_type=client_credentials&client_id=' + key + '&client_secret=' + secret,
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    }).then(function(response) {
+        return response.json();
 
-  }).then(function (data) {
-    //A second call going to be made to the Api, this one will use the token data to retrive information,
-    return fetch(url + parameters, {
-      headers: {
-        'Authorization': data.token_type + ' ' + data.access_token,
-        'Content-Type' : 'application/x-www-form-urlencoded'
-      }
-    })
-  }).then(function (response) {
-  	return response.json();
+    }).then(function(data) {
+        //A second call going to be made to the Api, this one will use the token data to retrive information,
+        return fetch(url + parameters, {
+            headers: {
+                'Authorization': data.token_type + ' ' + data.access_token,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        })
+    }).then(function(response) {
+        return response.json();
 
-  }).then(function (data) {
-    //data is printed to console.log, we can send to function once we have things up and running...
-    populateCards(data);
+    }).then(function(data) {
+        //data is printed to console.log, we can send to function once we have things up and running...
+        populateCards(data);
 
-  }).catch(function (error) {
-  	console.log('YOU FOOL!', error );
+    }).catch(function(error) {
+        console.log('YOU FOOL!', error);
 
-  });
+    });
 
 }
 
@@ -286,15 +290,15 @@ function populateCards(data){
             animalLink
             );
 
-        petList.appendChild(petCard);
+            petList.appendChild(petCard);
 
 
-        fetchCoord(pAddress1,pCity,pState,pZip,animalName);
+            fetchCoord(pAddress1, pCity, pState, pZip, animalName);
 
-      } catch (error) {
-        console.error(error);
-        continue;
-      }
+        } catch (error) {
+            console.error(error);
+            continue;
+        }
     }
 };
 
@@ -311,6 +315,6 @@ function generateMap(data,animalName){
   });
 }
 
-function initMap(){
+function initMap() {
 
 }
