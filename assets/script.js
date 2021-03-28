@@ -42,7 +42,7 @@ const html = (strings, ...values) => new DOMParser().parseFromString(strings.map
 
 
 // This is the actual template for the HTML, with variables passed to it.
-function buildPetCard(petName, petImg, petBreed, petAge, petDist, petLoc, petStatus, petDescr,petLink) {
+function buildPetCard(petName, petImg, petBreed, petAge, petDist, petLoc, petStatus, petDescr, petLink) {
 
     let petCard = html `
     <div class='test columns small-12 medium-4 large-3 end'>
@@ -54,9 +54,6 @@ function buildPetCard(petName, petImg, petBreed, petAge, petDist, petLoc, petSta
                   <span id='nameofpet' class="label card-name">${petName}</span>
               </div>
             </a>
-            <div class="divbutton">
-              <button type="button" style="display: none;">Hello</button>
-            </div>
             <div class="card-section">
                 <h3 class="card-title">${petBreed}</h3>
                 <div class="main-details">
@@ -183,111 +180,111 @@ function fetchAnimals(parameters) {
 fetchAnimals(animalQParam);
 
 // This function is not being called yet, but will take data returned from the PetFinder API, build the cards, and append them to the screen.
-function populateCards(data){
-    for (var i = 0; i < data.animals.length; i++){
-      try{
-        if (data.animals[i].name != null){
-          animalName = data.animals[i].name;
-        }else{
-          animalName = "";
-        }
-        try{
-          if (data.animals[i].photos[0].full != null){
-            animalPhoto = data.animals[i].photos[0].full;
-          }else{
-            animalPhoto = "";
-          }
-        } catch{
-          animalPhoto = "https://eagle-sensors.com/wp-content/uploads/unavailable-image.jpg";
-        }
+function populateCards(data) {
+    for (var i = 0; i < data.animals.length; i++) {
+        try {
+            if (data.animals[i].name != null) {
+                animalName = data.animals[i].name;
+            } else {
+                animalName = "";
+            }
+            try {
+                if (data.animals[i].photos[0].full != null) {
+                    animalPhoto = data.animals[i].photos[0].full;
+                } else {
+                    animalPhoto = "";
+                }
+            } catch {
+                animalPhoto = "https://eagle-sensors.com/wp-content/uploads/unavailable-image.jpg";
+            }
 
-        if (data.animals[i].breeds.primary != null){
-          animalBreed = data.animals[i].breeds.primary;
-        }else{
-          animalBreed = "";
-        }
-        if (data.animals[i].age != null){
-          animalAge = data.animals[i].age;
-        }else{
-          animalAge = "";
-        }
-        if (data.animals[i].distance != null){
-          animalDistance = data.animals[i].distance;
-        }else{
-          animalDistance = "";
-        }
-        if (data.animals[i].contact.email != null){
-          pEmail = data.animals[i].contact.email;
-        }else{
-          pEmail = "";
-        }
-        if (data.animals[i].contact.phone != null){
-          pPhone = data.animals[i].contact.phone;
-        }else{
-          pPhone = "";
-        }
-        if (data.animals[i].contact.address.address1 != null){
-          pAddress1 = data.animals[i].contact.address.address1;
-        }else{
-          pAddress1 = "";
-        }
-        if (data.animals[i].contact.address.address1 != null){
-          pAddress2 = data.animals[i].contact.address.address1;
-        }else{
-          pAddress2 = "";
-        }
-        if (data.animals[i].contact.address.city != null){
-          pCity = data.animals[i].contact.address.city;
-        }else{
-          pCity = "";
-        }
-        if (data.animals[i].contact.address.state != null){
-          pState = data.animals[i].contact.address.state;
-        }else{
-          pState = "";
-        }
-        if (data.animals[i].contact.address.postcode != null){
-          pZip = data.animals[i].contact.address.postcode;
-        }else{
-          pZip = "";
-        }
-        if (data.animals[i].status != null){
-          animalStatus = data.animals[i].status;
-        }else{
-          animalStatus = "";
-        }
-        if (data.animals[i].description != null){
-          animalDescription = data.animals[i].description;
-        }else{
-          animalDescription = "";
-        }
-        if (data.animals[i].url != null){
-          animalLink = data.animals[i].url;
-        }else{
-          animalLink = "";
-        }
+            if (data.animals[i].breeds.primary != null) {
+                animalBreed = data.animals[i].breeds.primary;
+            } else {
+                animalBreed = "";
+            }
+            if (data.animals[i].age != null) {
+                animalAge = data.animals[i].age;
+            } else {
+                animalAge = "";
+            }
+            if (data.animals[i].distance != null) {
+                animalDistance = data.animals[i].distance;
+            } else {
+                animalDistance = "";
+            }
+            if (data.animals[i].contact.email != null) {
+                pEmail = data.animals[i].contact.email;
+            } else {
+                pEmail = "";
+            }
+            if (data.animals[i].contact.phone != null) {
+                pPhone = data.animals[i].contact.phone;
+            } else {
+                pPhone = "";
+            }
+            if (data.animals[i].contact.address.address1 != null) {
+                pAddress1 = data.animals[i].contact.address.address1;
+            } else {
+                pAddress1 = "";
+            }
+            if (data.animals[i].contact.address.address1 != null) {
+                pAddress2 = data.animals[i].contact.address.address1;
+            } else {
+                pAddress2 = "";
+            }
+            if (data.animals[i].contact.address.city != null) {
+                pCity = data.animals[i].contact.address.city;
+            } else {
+                pCity = "";
+            }
+            if (data.animals[i].contact.address.state != null) {
+                pState = data.animals[i].contact.address.state;
+            } else {
+                pState = "";
+            }
+            if (data.animals[i].contact.address.postcode != null) {
+                pZip = data.animals[i].contact.address.postcode;
+            } else {
+                pZip = "";
+            }
+            if (data.animals[i].status != null) {
+                animalStatus = data.animals[i].status;
+            } else {
+                animalStatus = "";
+            }
+            if (data.animals[i].description != null) {
+                animalDescription = data.animals[i].description;
+            } else {
+                animalDescription = "";
+            }
+            if (data.animals[i].url != null) {
+                animalLink = data.animals[i].url;
+            } else {
+                animalLink = "";
+            }
 
-        petLocation = {
-          email: pEmail,
-          phone: pPhone,
-          address1: pAddress1,
-          address2: pAddress2,
-          city: pCity,
-          state: pState,
-          zip: pZip
-      };
+            petLocation = {
+                email: pEmail,
+                phone: pPhone,
+                address1: pAddress1,
+                address2: pAddress2,
+                city: pCity,
+                state: pState,
+                zip: pZip
+            };
 
 
-        petCard = buildPetCard(
-            animalName,
-            animalPhoto,
-            animalBreed,
-            animalAge,
-            Math.round(animalDistance),
-            petLocation,
-            animalStatus,
-            animalDescription,
-            animalLink
+            petCard = buildPetCard(
+                animalName,
+                animalPhoto,
+                animalBreed,
+                animalAge,
+                Math.round(animalDistance),
+                petLocation,
+                animalStatus,
+                animalDescription,
+                animalLink
             );
 
             petList.appendChild(petCard);
@@ -302,17 +299,17 @@ function populateCards(data){
     }
 };
 
-function generateMap(data,animalName){
-  var mapID = animalName + "Map";
-  const uluru = {lat: data.results[0].geometry.location.lat, lng: data.results[0].geometry.location.lng};
-  const map = new google.maps.Map(document.getElementById(mapID),{
-    zoom: 10,
-    center: uluru,
-  });
-  const marker = new google.maps.Marker({
-    position: uluru,
-    map: map,
-  });
+function generateMap(data, animalName) {
+    var mapID = animalName + "Map";
+    const uluru = { lat: data.results[0].geometry.location.lat, lng: data.results[0].geometry.location.lng };
+    const map = new google.maps.Map(document.getElementById(mapID), {
+        zoom: 10,
+        center: uluru,
+    });
+    const marker = new google.maps.Marker({
+        position: uluru,
+        map: map,
+    });
 }
 
 function initMap() {
