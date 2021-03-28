@@ -2,6 +2,7 @@
 var petCard;
 var petLocation;
 var petList = document.getElementById("petList");
+
 var breedArray = []
 var animalName;
 var animalPhoto;
@@ -35,6 +36,7 @@ var qAge = params.get("Age");
 // Template tag parser courtesy of Nate
 // This takes template tags and parses them into HTML elements that are appendable to the current scope
 const html = (strings, ...values) => new DOMParser().parseFromString(strings.map((string, i) => strings[i] + values[i]).join(''), "text/html").body.firstChild;
+//To help retain data on to local storage from favorited pets...
 
 
 
@@ -48,6 +50,9 @@ function buildPetCard(petName,petImg,petBreed,petAge,petDist,petLoc,petStatus,pe
             <div class="card-image">
                 <img src="${petImg}">
                 <span id='nameofpet' class="label card-name">${petName}</span>
+            </div>
+            <div class="divbutton">
+              <button type="button" style="display: none;">Hello</button>
             </div>
             <div class="card-section">
                 <h3 class="card-title">${petBreed}</h3>
@@ -68,6 +73,8 @@ function buildPetCard(petName,petImg,petBreed,petAge,petDist,petLoc,petStatus,pe
 
     return petCard;
 };
+
+
 
 function fetchCoord(address,city,state,zip,animalName){
 
@@ -134,7 +141,7 @@ function fetchAnimals(parameters){
   var key = "j4sCZuvwpfgBJBJkcTF1Q2jWK3imT2gtsdOUiC3QwKjtLahsYP";
   var secret = "aN0ZxQr0R1rBU7ikZCowpLOuVUQDqE0Z65Ck6Glb";
   var url = "https://api.petfinder.com/v2/animals"
-  
+
 
   //uses the fetch api to get a current access token from the petfinder Api
   fetch('https://api.petfinder.com/v2/oauth2/token', {
@@ -160,7 +167,7 @@ function fetchAnimals(parameters){
   }).then(function (data) {
     //data is printed to console.log, we can send to function once we have things up and running...
     populateCards(data);
-    
+
   }).catch(function (error) {
   	console.log('YOU FOOL!', error );
 
@@ -188,7 +195,7 @@ function populateCards(data){
         } catch{
           animalPhoto = "https://eagle-sensors.com/wp-content/uploads/unavailable-image.jpg";
         }
-        
+
         if (data.animals[i].breeds.primary != null){
           animalBreed = data.animals[i].breeds.primary;
         }else{
@@ -260,6 +267,7 @@ function populateCards(data){
           zip: pZip
       };
 
+
         petCard = buildPetCard(
             animalName,
             animalPhoto,
@@ -272,6 +280,7 @@ function populateCards(data){
             );
 
         petList.appendChild(petCard);
+
 
         fetchCoord(pAddress1,pCity,pState,pZip,animalName);
 

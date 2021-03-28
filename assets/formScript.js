@@ -1,6 +1,9 @@
 const form = document.forms.petForm;
 var dogSelect = document.getElementById("dogBreedSelect");
 var catSelect = document.getElementById("catBreedSelect");
+var animalType = document.getElementById("animalSelect");
+var catList = document.getElementById("catBreeds");
+var dogList = document.getElementById("dogBreeds");
 
 function handleSubmit(event){
     event.preventDefault();
@@ -9,7 +12,7 @@ function handleSubmit(event){
     console.log(dataString);
     const queryString = "./results.html?" + dataString;
     window.location = queryString;
-   
+
 }
 
 //Breed Api Fetch, grabs breeds based on Animal of choice and returns them as search parameters
@@ -25,7 +28,7 @@ function fetchDogBreeds(){
         }
     }).then(function (response) {
         return response.json();
-  
+
     }).then(function (data) {
       //A second call going to be made to the Api, this one will use the token data to retrive information,
       return fetch(url + "dog/breeds", {
@@ -36,7 +39,7 @@ function fetchDogBreeds(){
       })
     }).then(function (response) {
         return response.json();
-  
+
     }).then(function (data) {
       for (i = 0 ; i < data.breeds.length; i++){
         //direct the data to drop down
@@ -47,7 +50,7 @@ function fetchDogBreeds(){
       }
     }).catch(function (error) {
         console.log('YOU FOOL!', error );
-  
+
     });
   }
 
@@ -64,7 +67,7 @@ function fetchDogBreeds(){
         }
     }).then(function (response) {
         return response.json();
-  
+
     }).then(function (data) {
       //A second call going to be made to the Api, this one will use the token data to retrive information,
       return fetch(url + "cat/breeds", {
@@ -75,7 +78,7 @@ function fetchDogBreeds(){
       })
     }).then(function (response) {
         return response.json();
-  
+
     }).then(function (data) {
       for (i = 0 ; i < data.breeds.length; i++){
         //direct the data to drop down
@@ -86,10 +89,22 @@ function fetchDogBreeds(){
       }
     }).catch(function (error) {
         console.log('YOU FOOL!', error );
-  
+
     });
   }
 
+  //Controlls what is viewable to the user so that the only breeds that appear are from the animal type desired, 
+  function hideDropDown(){
+    if (animalType.value == 'cat'){
+      catList.classList.remove("hide")
+      dogList.classList.add("hide")
+    }else if (animalType.value == 'dog'){
+      dogList.classList.remove("hide")
+      catList.classList.add("hide")
+    }
+  }
+
+  animalType.addEventListener("change", hideDropDown)
   form.addEventListener('submit',handleSubmit);
   fetchDogBreeds();
   fetchCatBreeds();

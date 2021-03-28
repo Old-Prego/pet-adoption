@@ -260,7 +260,9 @@ strong {
 .mobile-product-filters {
     border-bottom: 1px solid #e6e6e6;
 }
-
+.favorite-butn{
+  color: grey;
+}
 #petList {
     margin: auto;
 }
