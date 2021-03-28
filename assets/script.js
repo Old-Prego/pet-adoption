@@ -41,14 +41,14 @@ const html = (strings, ...values) => new DOMParser().parseFromString(strings.map
 
 
 // This is the actual template for the HTML, with variables passed to it.
-function buildPetCard(petName,petImg,petBreed,petAge,petDist,petLoc,petStatus,petDescr){
+function buildPetCard(petName, petImg, petBreed, petAge, petDist, petLoc, petStatus, petDescr) {
 
     let petCard = html `
-    <div class='columns small-12 medium-4 large-3 end'>
+    <div class='test columns small-12 medium-4 large-3 end'>
     <div class='card-container'>
         <div id='${petName}' class="card-flex-animal card">
             <div class="card-image">
-                <img src="${petImg}">
+                <img class='petImg' src="${petImg}">
                 <span id='nameofpet' class="label card-name">${petName}</span>
             </div>
             <div class="divbutton">
@@ -57,9 +57,9 @@ function buildPetCard(petName,petImg,petBreed,petAge,petDist,petLoc,petStatus,pe
             <div class="card-section">
                 <h3 class="card-title">${petBreed}</h3>
                 <div class="main-details">
-                    <span class="age">${petAge}yo | </span>
+                    <span class="age">${petAge} | </span>
+                    <span class="distance">${petDist}mi away</span> |
                     <span class="status">Adoption Status: ${petStatus}</span>
-                    <span class="distance">${petDist}mi away</span>
                 </div>
                 <p>${petDescr}</p>
                 </br>
@@ -73,8 +73,6 @@ function buildPetCard(petName,petImg,petBreed,petAge,petDist,petLoc,petStatus,pe
 
     return petCard;
 };
-
-
 
 function fetchCoord(address,city,state,zip,animalName){
 
@@ -107,32 +105,32 @@ var qCatBreed = params.get("catBreed");
 var qAge = params.get("age");
 
 //Get inut from forum and orgnizes it inorder to add it to the url as parametes...
-function queryParmeters(qCityState,qZIP,qAnimal,qDistance,qDogBreed,qCatBreed,qAge){
+function queryParmeters(qCityState, qZIP, qAnimal, qDistance, qDogBreed, qCatBreed, qAge) {
 
     query = `?type=${qAnimal}`
-    if (qAnimal == "dog"){
-      if (qDogBreed != "any"){
-        query = query + `&breed=${qDogBreed}`;
-      }
-    }else if (qAnimal == "cat"){
-      if (qCatBreed != "any"){
-        query = query + `&breed=${qCatBreed}`;
-      }
+    if (qAnimal == "dog") {
+        if (qDogBreed != "any") {
+            query = query + `&breed=${qDogBreed}`;
+        }
+    } else if (qAnimal == "cat") {
+        if (qCatBreed != "any") {
+            query = query + `&breed=${qCatBreed}`;
+        }
     }
-    if (qDistance != null){
-      query = query + `&distance=${qDistance}`;
+    if (qDistance != null) {
+        query = query + `&distance=${qDistance}`;
     }
-    if (qAge != "any"){
-      query = query + `&age=${qAge}`;
+    if (qAge != "any") {
+        query = query + `&age=${qAge}`;
     }
-    if (qZIP != null){
-      query = query + `&location=${qZIP}`;
-    }else if (qCityState != null){
-      query = query + `&location=${qCityState}`;
+    if (qZIP != null) {
+        query = query + `&location=${qZIP}`;
+    } else if (qCityState != null) {
+        query = query + `&location=${qCityState}`;
     }
 
     return query
-  }
+}
 
 let animalQParam = queryParmeters(qCityState,qZIP,qAnimal,qDistance,qDogBreed,qCatBreed,qAge);
 

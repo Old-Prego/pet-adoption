@@ -146,14 +146,28 @@ h3 {
 
 /* Card Layout */
 
+.test {
+    margin-bottom: 20px;
+}
+
+.petImg {
+    height: 290px;
+    width: 240px;
+}
+
 #nameofpet {
     background-color: black;
 }
 
 .card-container {
-    height: 500px;
+    height: fit-content;
     width: 242px;
     margin: auto;
+}
+
+.card-section {
+    height: 360px;
+    overflow: auto;
 }
 
 .card-flex-animal .card-divider {
@@ -198,7 +212,7 @@ h3 {
 }
 
 strong {
-    color: #2199e8;
+    color: #dbbdaa;
 }
 
 .animal-details {
@@ -269,14 +283,31 @@ strong {
 
 @media only screen and (min-width: 1400px) {
     .card-container {
-        height: 600px;
+        height: fit-content;
         width: 342px;
     }
+
+/* Scrollbar for Card */
+
+::-webkit-scrollbar {
+    width: 20px;
 }
 
-.map{
+::-webkit-scrollbar-thumb {
+    background: #fcf0e8;
+    height: 20%;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #e4cdbe;
+}
+
+}
+
+.map {
     visibility: visible;
     display:flex;
-    height:300px;
+    height:390px;
     width:100%;
 }
+
