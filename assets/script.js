@@ -55,8 +55,11 @@ function buildPetCard(petName, petImg, petBreed, petAge, petDist, petLoc, petSta
                 </div>
                 <p>${petDescr}</p>
                 </br>
-                <p class='animal-details'>${petLoc.address1}</p>
-                <p class='animal-details'>${petLoc.city}, ${petLoc.state} ${petLoc.zip}</p>
+                <p class='animal-details'><strong>${petLoc.address1}</strong></p>
+                <p class='animal-details'><strong>${petLoc.city}, ${petLoc.state} ${petLoc.zip}</strong></p>
+                <div class="card-map">
+                  <img class='petMap' src="assets/testmap.png">
+                </div>
             </div>
         </div>
     </div>
