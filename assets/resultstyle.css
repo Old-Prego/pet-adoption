@@ -274,7 +274,9 @@ strong {
 .mobile-product-filters {
     border-bottom: 1px solid #e6e6e6;
 }
-
+.favorite-butn{
+  color: grey;
+}
 #petList {
     margin: auto;
 }
@@ -284,12 +286,6 @@ strong {
         height: fit-content;
         width: 342px;
     }
-    .petImg {
-        height: 390px;
-        width: 340px;
-    }
-}
-
 
 /* Scrollbar for Card */
 
@@ -305,3 +301,13 @@ strong {
 ::-webkit-scrollbar-thumb:hover {
     background: #e4cdbe;
 }
+
+}
+
+.map {
+    visibility: visible;
+    display:flex;
+    height:390px;
+    width:100%;
+}
+
