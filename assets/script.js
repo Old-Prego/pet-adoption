@@ -45,7 +45,7 @@ const html = (strings, ...values) => new DOMParser().parseFromString(strings.map
 function buildPetCard(petName, petImg, petBreed, petAge, petDist, petLoc, petStatus, petDescr, petLink) {
 
     let petCard = html `
-    <div class='test columns small-12 medium-4 large-3 end'>
+    <div class='entirecard columns small-12 medium-4 large-3 end'>
     <div class='card-container'>
         <div id='${petName}' class="card-flex-animal card">
             <a href="${petLink}" target="_blank">
@@ -68,7 +68,7 @@ function buildPetCard(petName, petImg, petBreed, petAge, petDist, petLoc, petSta
                 <p class='animal-details'><strong>Phone:</strong> ${petLoc.phone}</p>
                 </br>
                 <p class='animal-details'><strong>${petLoc.address1}</strong></p>
-                <p class='animal-details'><strong>${petLoc.city}, ${petLoc.state} ${petLoc.zip}<strong></p>
+                <p class='animal-details'><strong>${petLoc.city}, ${petLoc.state} ${petLoc.zip}</strong></p>
                 <div id="${petName}Map" class="map"></div>
             </div>
         </div>
