@@ -2,7 +2,8 @@
 var petCard;
 var petLocation;
 var petList = document.getElementById("petList");
-
+var favoratedPetList = document.getElementById("chosenPet-list");
+var favoredPetCard
 var breedArray = []
 var animalName;
 var animalPhoto;
@@ -55,6 +56,16 @@ function buildPetCard(petName, petImg, petBreed, petAge, petDist, petLoc, petSta
               </div>
             </a>
             <div class="card-section">
+                <button class="favorite-btn" title="Add ${petName} to your favorites list" onclick="savepet(innerHTML); if (this.innerText == '✓'){
+                                                                                                                                                    this.innerText = '+';
+                                                                                                                                                    this.title='Add ${petName} to your favorites list'
+                                                                                                                                                  }else{
+                                                                                                                                                    this.innerText = '✓';
+                                                                                                                                                  this.title='${petName} has been added to your favorites list' };"> + <span id="petInfo" style="display: none;">
+                *
+                ${petName}    ${petStatus}    ${petImg}    ${petDescr}    ${petLoc.city}, ${petLoc.state} ${petLoc.zip}    ${petLink}
+                *
+                </span> </button>
                 <h3 class="card-title">${petBreed}</h3>
                 <div class="main-details">
                     <span class="age">${petAge} | </span>
@@ -77,6 +88,67 @@ function buildPetCard(petName, petImg, petBreed, petAge, petDist, petLoc, petSta
 
     return petCard;
 };
+
+//Builds card for favorated pet list
+function buildFaveriteCard(pImage, purl, favoredName){
+
+  let petCard = html `
+  <div class='test columns small-12 medium-4 end favPet' style="margin-right: 10px; margin-left: 10px;">
+  <div class='card-container'>
+      <div id='${favoredName}' class="card-flex-animal card">
+          <a href="${purl}" target="_blank">
+            <div class="card-image">
+                <img class='petImg' src="${pImage}">
+                <span id='nameofpet' class="label card-name">${favoredName}</span>
+            </div>
+          </a>
+      </div>
+  </div>
+  </div>`
+  return petCard;
+};
+
+//Function called after user decides to add pet to their favorites
+var savedPetList = []
+var storedPets = JSON.parse(localStorage.getItem("favorited"))
+favoratesInit()
+function favoratesInit(){
+
+  if (storedPets !== null){
+    savedPetList = storedPets
+  }
+  renderSavedPets()
+}
+
+function renderSavedPets(){
+
+  favoratedPetList.innerHTML = ""
+
+  for (i = 0; i < savedPetList.length; i ++ ){
+    favoredPetCard = buildFaveriteCard( savedPetList[i][6], savedPetList[i][9], savedPetList[i][4])
+    favoratedPetList.appendChild(favoredPetCard)
+  }
+}
+
+
+
+function savepet(petInfo){
+
+  var start = petInfo.indexOf("*")+1
+  var end = petInfo.lastIndexOf("*")
+
+  var cleanedData = petInfo.slice(start, end)
+  var infoArray = cleanedData.split("    ")
+  savedPetList.push(infoArray)
+  addToFavorites()
+  renderSavedPets()
+}
+
+function addToFavorites(){
+  localStorage.setItem("favorited", JSON.stringify(savedPetList))
+}
+
+
 
 function fetchCoord(address, city, state, zip, animalName) {
 
@@ -274,6 +346,9 @@ function populateCards(data) {
                 zip: pZip
             };
 
+            var favBtn = document.createElement("button");
+
+
 
             petCard = buildPetCard(
                 animalName,
@@ -298,6 +373,7 @@ function populateCards(data) {
         }
     }
 };
+
 
 function generateMap(data, animalName) {
     var mapID = animalName + "Map";

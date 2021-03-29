@@ -293,8 +293,27 @@ strong {
     color: grey;
 }
 
+.favorite-btn{
+  color: grey;
+  font-size: x-large;
+}
+.favorite-btn:hover{
+  color: grey;
+  font-size: xx-large;
+}
+.savedPet-title{
+  margin-left: 15px;
+  margin-top: 15px;
+}
+.favPet:hover{
+  transform: rotate(3deg);
+}
+
 #petList {
     margin: auto;
+}
+#chosenPet-list{
+  margin: auto;
 }
 
 .map {
